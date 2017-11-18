@@ -1,0 +1,33 @@
+#topbarsearch .input-field .prefix { 
+    width:0rem !important;    
+
+}        
+#topbarsearch nav ul li:hover, nav ul li.active {
+    background-color: none !important;
+}
+
+.input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .autocomplete-content{
+    margin-left: 1rem !important;
+}
+
+i.icon-green {
+    color: green;
+}
+
+/* label focus color */
+.input-field input:focus + label {
+    color: green !important;
+}
+
+/* label underline focus color */
+.row .input-field input:focus {
+    border-bottom: 1px solid green !important;
+    box-shadow: 0 1px 0 0 green !important
+}
+
+#search {
+    display: none;
+    margin-bottom: 0px;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+}
