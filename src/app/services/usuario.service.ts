@@ -24,7 +24,7 @@ export class UsuarioService {
   }
 
   recuperarPassword(email:string) {
-    let url = this.servidorPath+'/usuario/olvidarContraseña';
+    let url = this.servidorPath+'/usuario/olvidarPassword';
     let usuarioInfo = {
       "email" : email
     }

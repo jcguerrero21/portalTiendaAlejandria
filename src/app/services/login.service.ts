@@ -32,7 +32,7 @@ export class LoginService {
   }
 
   logout() {
-    let url = this.servidorPath + '/usuario/logout';
+    let url = this.servidorPath + '/usuario/cerrarSesion';
     let headers = new Headers({
       'x-auth-token' : localStorage.getItem('xAuthToken')
     });

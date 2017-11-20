@@ -1,6 +1,6 @@
 <nav class="grey darken-3">
   <div class="nav-wrapper">
-    <a href="#" style="margin-left: 10%;" class="brand-logo">ALEJANDRÍA</a>
+    <a href="#" style="margin-left: 5%;" class="brand-logo">ALEJANDRÍA</a>
     <a href="#" data-activates="mobile-demo" class="button-collapse">
       <i class="material-icons">menu</i>
     </a>
@@ -26,6 +26,12 @@
       <li *ngIf="!loggedIn">
         <a routerLink="/miCuenta">Mi cuenta</a>
       </li>
+      <li *ngIf="loggedIn">
+        <a routerLink="/cestaCompra">Cesta<i class="icon-green material-icons right">shopping_basket</i></a>
+      </li>
+      <li *ngIf="loggedIn">
+        <a [style.color]="'white'" class="waves-effect waves-yellow btn-flat" (click)="logout()">Cerrar Sesión</a>
+      </li>
     </ul>
     <ul class="side-nav" id="mobile-demo">
       <li>
@@ -50,10 +56,10 @@
         <a [style.color]="'black'" class="waves-effect waves-yellow btn-flat" routerLink="/miCuenta">Mi cuenta</a>
       </li>
       <li *ngIf="loggedIn">
-        <a [style.color]="'white'" class="waves-effect waves-yellow btn-flat" routerLink="/listaLibros">Carrito</a>
+        <a [style.color]="'black'" class="waves-effect waves-yellow btn-flat" routerLink="/cestaCompra">Cesta<i class="icon-green material-icons right">shopping_basket</i></a>
       </li>
       <li *ngIf="loggedIn">
-        <a [style.color]="'white'" class="waves-effect waves-yellow btn-flat" routerLink="/listaLibros">Cerrar Sesión</a>
+        <a [style.color]="'black'" class="waves-effect waves-yellow btn-flat" (click)="logout()">Cerrar Sesión</a>
       </li>
     </ul>
   </div>
