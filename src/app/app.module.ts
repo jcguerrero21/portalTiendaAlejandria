@@ -5,15 +5,20 @@ import { HttpModule } from '@angular/http';
 import { MaterializeModule } from 'angular2-materialize';
 import { routing } from './app.routing';
 
+import { LoginService } from './services/login.service';
+import { UsuarioService } from './services/usuario.service';
+
 import { AppComponent } from './app.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { MiCuentaComponent } from './components/mi-cuenta/mi-cuenta.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InicioComponent,
-    NavBarComponent
+    NavBarComponent,
+    MiCuentaComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +27,10 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     MaterializeModule,
     routing
   ],
-  providers: [],
+  providers: [
+    LoginService,
+    UsuarioService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
