@@ -25,7 +25,7 @@ export class MiCuentaComponent implements OnInit {
   private email:string;
 
   private emailNoExiste: boolean = false;
-  private olvideContraseñaCorreoEnviado: boolean;
+  private olvidePasswordCorreoEnviado: boolean;
   private recuperarEmail: string;
 
 
@@ -51,7 +51,7 @@ export class MiCuentaComponent implements OnInit {
     );
   }
 
-  onNewAccount() {
+  onNuevaCuenta() {
     this.usernameExiste = false;
     this.emailExiste = false;
     this.emailEnviado = false;
@@ -70,8 +70,8 @@ export class MiCuentaComponent implements OnInit {
     );
   }
 
-  onOlvidasteContraseña(){
-    this.olvideContraseñaCorreoEnviado = false;
+  onOlvidastePassword(){
+    this.olvidePasswordCorreoEnviado = false;
     this.emailNoExiste = false;
 
     this.usuarioService.recuperarPassword(this.recuperarEmail).subscribe(
@@ -88,7 +88,7 @@ export class MiCuentaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.checkSession().subscribe(
+    this.loginService.verificarSesion().subscribe(
       res => {
         this.loggedIn = true;
       },

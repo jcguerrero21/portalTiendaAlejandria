@@ -22,8 +22,8 @@ export class LoginService {
     return this.http.get(url, { headers: headers });
   }
 
-  checkSession() {
-    let url = this.servidorPath + '/checkSession';
+  verificarSesion() {
+    let url = this.servidorPath + '/verificarSesion';
     let headers = new Headers({
       'x-auth-token' : localStorage.getItem('xAuthToken')
     });
