@@ -77,8 +77,8 @@
         </form>
       </div>
       <div id="recuperarPassword" class="col s12 grey lighten-3">
-        <div *ngIf="emailNoExiste" style="color:red">
-          El email que has introducido no existe.
+        <div *ngIf="emailNoExiste" class="card-panel red lighten-4 red-text text-darken-4">
+            El email que has introducido no existe.
         </div>
         <div *ngIf="olvidePasswordCorreoEnviado" class="card-panel green lighten-4 green-text text-darken-4">
           Email enviado

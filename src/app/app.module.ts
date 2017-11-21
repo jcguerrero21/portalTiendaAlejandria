@@ -12,13 +12,15 @@ import { AppComponent } from './app.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { MiCuentaComponent } from './components/mi-cuenta/mi-cuenta.component';
+import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InicioComponent,
     NavBarComponent,
-    MiCuentaComponent
+    MiCuentaComponent,
+    MiPerfilComponent
   ],
   imports: [
     BrowserModule,

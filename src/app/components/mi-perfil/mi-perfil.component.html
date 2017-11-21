@@ -1,0 +1,136 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <img class="responsive-img" src="../../../assets/imagenes/cabecera_miPerfil.png">
+    </div>
+  </div>
+
+  <div *ngIf="!datosObtenidos" style="margin-top:10%; margin-left:45%;">
+    <div class="row">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-green-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top:5%;">
+    <div *ngIf="datosObtenidos">
+      <div class="col s12">
+        <ul id="tabs-swipe-demo" class="tabs">
+          <li class="tab col s3">
+            <a href="#editar">Editar</a>
+          </li>
+          <li class="tab col s3">
+            <a class="active" href="#test-swipe-2">Test 2</a>
+          </li>
+          <li class="tab col s3">
+            <a href="#test-swipe-3">Test 3</a>
+          </li>
+        </ul>
+        <div id="editar" class="col s12">
+          <div *ngIf="incorrectPassword" class="card-panel red lighten-4 red-text text-darken-4">
+            <strong>Contraseña Incorecta</strong>, Por favor introduce la contraseña actual de tu usuario
+          </div>
+          <div *ngIf="actualizadoExito" class="card-panel green lighten-4 green-text text-darken-4">
+            <strong>Actualización correcta</strong>
+          </div>
+          <form (ngSubmit)="onActualizarInfoUsuario()">
+            <input type="hidden" [(ngModel)]="usuario.id" name="id" />
+            <div class="bg-info" *ngIf="actualizarUsuarioInfo">Información del usuario actualiazada.</div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input type="text" [(ngModel)]="usuario.nombre" id="nombre" class="validate" required>
+                <label for="nombre">Nombre*</label>
+              </div>
+              <div class="input-field col s6">
+                <input type="text" [(ngModel)]="usuario.apellidos" id="apellidos" class="validate" required>
+                <label for="apellidos">Apellidos*</label>
+              </div>
+            </div>
+            <div class="row">
+              <span *ngIf="usernameExits" style="color:red">El nombre de usuario ya existe</span>
+              <div class="input-field col s12">
+                <input type="text" [(ngModel)]="usuario.username" id="username" class="validate" required>
+                <label for="username">Nombre De Usuario*</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" [(ngModel)]="passwordActual" id="password" class="validate" required>
+                <label for="password">contraseña Actual*</label>
+              </div>
+            </div>
+            <div class="row">
+              <span *ngIf="emailExits" style="color:red">Ese email ya esta en uso</span>
+              <div class="input-field col s12">
+                <input type="email" [(ngModel)]="usuario.email" id="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+            </div>
+            <div class="row">
+              <span *ngIf="checkPasswordMatch" style="color:red">Ese email ya esta en uso</span>
+              <div class="input-field col s12">
+                <input type="password" [(ngModel)]="nuevaPassword" id="txtNuevaPassword" class="validate" required>
+                <label for="txtNuevaPassword">Contraseña Nueva</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="password" id="txtConfirmarPassword" class="validate" required>
+                <label for="txtConfirmarPassword">Confirmar Nueva Contraseña</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s2">
+                <button type="submit" class="btn green waves-effect waves-light" id="actualizarUsuarioInfoButton">Guardar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div id="test-swipe-2" class="col s12 red">Test 2</div>
+        <div id="test-swipe-3" class="col s12 green">Test 3</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="page-footer grey darken-3">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">TRABAJO FIN DE GRADO SUPERIOR</h5>
+        <p class="grey-text text-lighten-4">uso de spring como backend y angular como frontend</p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Redes Socilaes</h5>
+        <ul>
+          <li>
+            <a class="grey-text text-lighten-3" href="https://twitter.com/Jcguerrero21">
+              <img src="../../../assets/imagenes/twitter.png">
+            </a>
+          </li>
+          <li>
+            <a class="grey-text text-lighten-3" href="https://www.facebook.com/juancarlos.guerrero.92798">
+              <img src="../../../assets/imagenes/facebook.png">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      © 2017 JUAN CARLOS GUERRERO MOYANO
+    </div>
+  </div>
+</footer>

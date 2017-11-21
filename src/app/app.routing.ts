@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { InicioComponent } from './components/inicio/inicio.component';
 import { MiCuentaComponent } from './components/mi-cuenta/mi-cuenta.component';
+import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 
 const appRoutes: Routes = [
     {
@@ -17,6 +18,10 @@ const appRoutes: Routes = [
     {
         path: 'miCuenta',
         component: MiCuentaComponent
+    },
+    {
+        path: 'miPerfil',
+        component: MiPerfilComponent
     }
 
 ];

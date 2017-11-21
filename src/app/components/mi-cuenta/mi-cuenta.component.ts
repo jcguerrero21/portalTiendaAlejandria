@@ -77,12 +77,12 @@ export class MiCuentaComponent implements OnInit {
     this.usuarioService.recuperarPassword(this.recuperarEmail).subscribe(
       res => {
         console.log(res);
-        this.emailEnviado = true;
+        this.olvidePasswordCorreoEnviado = true;
       },
       error => {
         console.log(error.text());
         let errorMessage = error.text();
-        if(errorMessage==="emailExiste") this.emailExiste=true;     
+        if(errorMessage==="Email no encontrado") this.emailNoExiste=true;     
       }
     );
   }
