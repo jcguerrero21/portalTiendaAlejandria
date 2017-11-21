@@ -23,83 +23,81 @@
     </div>
   </div>
 
+
   <div class="row" style="margin-top:5%;">
-    <div *ngIf="datosObtenidos">
-      <div class="col s12">
-        <ul id="tabs-swipe-demo" class="tabs">
-          <li class="tab col s3">
-            <a href="#editar">Editar</a>
-          </li>
-          <li class="tab col s3">
-            <a class="active" href="#test-swipe-2">Test 2</a>
-          </li>
-          <li class="tab col s3">
-            <a href="#test-swipe-3">Test 3</a>
-          </li>
-        </ul>
-        <div id="editar" class="col s12">
-          <div *ngIf="incorrectPassword" class="card-panel red lighten-4 red-text text-darken-4">
-            <strong>Contraseña Incorecta</strong>, Por favor introduce la contraseña actual de tu usuario
-          </div>
-          <div *ngIf="actualizadoExito" class="card-panel green lighten-4 green-text text-darken-4">
-            <strong>Actualización correcta</strong>
-          </div>
-          <form (ngSubmit)="onActualizarInfoUsuario()">
-            <input type="hidden" [(ngModel)]="usuario.id" name="id" />
-            <div class="bg-info" *ngIf="actualizarUsuarioInfo">Información del usuario actualiazada.</div>
-            <div class="row">
-              <div class="input-field col s6">
-                <input type="text" [(ngModel)]="usuario.nombre" id="nombre" class="validate" required>
-                <label for="nombre">Nombre*</label>
-              </div>
-              <div class="input-field col s6">
-                <input type="text" [(ngModel)]="usuario.apellidos" id="apellidos" class="validate" required>
-                <label for="apellidos">Apellidos*</label>
-              </div>
-            </div>
-            <div class="row">
-              <span *ngIf="usernameExits" style="color:red">El nombre de usuario ya existe</span>
-              <div class="input-field col s12">
-                <input type="text" [(ngModel)]="usuario.username" id="username" class="validate" required>
-                <label for="username">Nombre De Usuario*</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input type="text" [(ngModel)]="passwordActual" id="password" class="validate" required>
-                <label for="password">contraseña Actual*</label>
-              </div>
-            </div>
-            <div class="row">
-              <span *ngIf="emailExits" style="color:red">Ese email ya esta en uso</span>
-              <div class="input-field col s12">
-                <input type="email" [(ngModel)]="usuario.email" id="email" class="validate">
-                <label for="email">Email</label>
-              </div>
-            </div>
-            <div class="row">
-              <span *ngIf="checkPasswordMatch" style="color:red">Ese email ya esta en uso</span>
-              <div class="input-field col s12">
-                <input type="password" [(ngModel)]="nuevaPassword" id="txtNuevaPassword" class="validate" required>
-                <label for="txtNuevaPassword">Contraseña Nueva</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input type="password" id="txtConfirmarPassword" class="validate" required>
-                <label for="txtConfirmarPassword">Confirmar Nueva Contraseña</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s2">
-                <button type="submit" class="btn green waves-effect waves-light" id="actualizarUsuarioInfoButton">Guardar</button>
-              </div>
-            </div>
-          </form>
+    <div class="col s12">
+      <ul id="tabs-swipe-demo" class="tabs">
+        <li class="tab col s4">
+          <a href="#editar">Editar</a>
+        </li>
+        <li class="tab col s4">
+          <a href="#test-swipe-2">Test 2</a>
+        </li>
+        <li class="tab col s4">
+          <a href="#test-swipe-3">Test 3</a>
+        </li>
+      </ul>
+      <div id="editar" class="col s12 grey lighten-3">
+        <div *ngIf="incorrectPassword" class="card-panel red lighten-4 red-text text-darken-4">
+          <strong>Contraseña Incorecta</strong>, Por favor introduce la contraseña actual de tu usuario
         </div>
-        <div id="test-swipe-2" class="col s12 red">Test 2</div>
-        <div id="test-swipe-3" class="col s12 green">Test 3</div>
+        <div *ngIf="actualizadoExito" class="card-panel green lighten-4 green-text text-darken-4">
+          <strong>Actualización correcta</strong>
+        </div>
+        <form (ngSubmit)="onActualizarInfoUsuario()" class="col s12">
+          <input type="hidden" [(ngModel)]="usuario.id" name="id" />
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="nombre" placeholder="" type="text"  class="validate activate"  required [(ngModel)]="usuario.nombre" name="nombre">
+              <label for="nombre">Nombre*</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="apellidos" placeholder="" type="text" class="validate" required [(ngModel)]="usuario.apellidos" name="apellidos">
+              <label for="apellidos">Apellidos*</label>
+            </div>
+          </div>
+          <div class="row">
+            <span *ngIf="usernameExits" style="color:red">El nombre de usuario ya existe</span>
+            <div class="input-field col s12">
+              <input placeholder="" type="text" [(ngModel)]="usuario.username" name="username" id="username" class="validate" required>
+              <label for="username">Nombre De Usuario*</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="" type="password" [(ngModel)]="passwordActual" name="password" id="password" class="validate">
+              <label for="password">contraseña Actual*</label>
+            </div>
+          </div>
+          <div class="row">
+            <span *ngIf="emailExits" style="color:red">Ese email ya esta en uso</span>
+            <div class="input-field col s12">
+              <input placeholder="" type="email" [(ngModel)]="usuario.email" name="email" id="email" class="validate">
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <span *ngIf="checkPasswordMatch" style="color:red">Ese email ya esta en uso</span>
+            <div class="input-field col s12">
+              <input placeholder="" type="password" [(ngModel)]="nuevaPassword" name="txtNuevaPassword" id="txtNuevaPassword" class="validate">
+              <label for="txtNuevaPassword">Contraseña Nueva</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="" type="password" name="txtConfirmarPassword" id="txtConfirmarPassword" class="validate">
+              <label for="txtConfirmarPassword">Confirmar Nueva Contraseña</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s2">
+              <button type="submit" class="btn green waves-effect waves-light" id="actualizarUsuarioInfoButton">Guardar</button>
+            </div>
+          </div>
+        </form>
       </div>
+      <div id="test-swipe-2" class="col s12 red">Test 2</div>
+      <div id="test-swipe-3" class="col s12 green">Test 3</div>
     </div>
   </div>
 </div>

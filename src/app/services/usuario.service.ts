@@ -36,16 +36,16 @@ export class UsuarioService {
     return this.http.post(url, JSON.stringify(usuarioInfo), { headers: tokenHeader });
   }
 
-  actualizarUsuarioInfo(usuario: Usuario, nuevaPassword: string) {
+  actualizarUsuarioInfo(usuario: Usuario, nuevaPassword: string, passwordActual: string) {
     let url = this.servidorPath + "/usuario/actualizarUsuarioInfo";
     let usuarioInfo = {
       "id": usuario.id,
       "nombre": usuario.nombre,
       "apellidos": usuario.apellidos,
       "username": usuario.username,
-      "passwordActual": usuario.password,
+      "passwordActual": passwordActual,
       "email": usuario.email,
-      "nuevaPassword": "nuevaPassword"
+      "nuevaPassword": nuevaPassword
     };
 
     let tokenHeader = new Headers({

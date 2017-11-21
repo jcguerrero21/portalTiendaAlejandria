@@ -11,6 +11,7 @@ declare var $: any;
 export class NavBarComponent implements OnInit {
 
   private loggedIn = false;
+  private url = "http://localhost:4200/inicio";
 
   constructor(private loginService:LoginService) { }
 
