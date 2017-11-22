@@ -15,11 +15,15 @@ declare var Materialize: any;
 @Component({
   selector: 'app-mi-perfil',
   templateUrl: './mi-perfil.component.html',
-  styleUrls: ['./mi-perfil.component.css']
+  styleUrls: ['./mi-perfil.component.css'],
+  animations: [slide]
 })
 export class MiPerfilComponent implements OnInit {
   model: any;
-  
+
+  @HostBinding('@routeAnimation') routeAnimation = true;
+  @HostBinding('style.display') display = 'block';
+  @HostBinding('style.position') position = 'relative';
 
   private servidorPath = AppConst.servidorPath;
   private datosObtenidos = false;
@@ -33,11 +37,25 @@ export class MiPerfilComponent implements OnInit {
   private incorrectPassword: boolean;
   private passwordActual: string;
 
+  private tabPerfilSeleccionada: number = 0;
+  private tabFacturacionSeleccionada: number = 0;
+
+  private usuarioPago: UsuarioPago = new UsuarioPago();
+  private usuarioFacturacion: UsuarioFacturacion = new UsuarioFacturacion();
+  private usuarioPagoLista: UsuarioPago[] = [];
+  private pagoPredeterminado: boolean;
+  private usuarioPagoPredeterminadoId: number;
+
   constructor(
     private loginService: LoginService,
     private usuarioService: UsuarioService,
-    private router: Router
+    private router: Router,
+    private pagoService: PagoService
   ) { }
+
+  cambioFacturacionSeleccionado(val: number) {
+    this.tabFacturacionSeleccionada = val;
+  }
 
   onActualizarInfoUsuario() {
     this.usuarioService.actualizarUsuarioInfo(this.usuario, this.nuevaPassword, this.passwordActual).subscribe(
@@ -69,6 +87,48 @@ export class MiPerfilComponent implements OnInit {
   //   Materialize.updateTextFields();
   // }
 
+  onNuevoPago() {
+    this.pagoService.nuevoPago(this.usuarioPago).subscribe(
+      res => {
+        this.getUsuarioActual();
+        this.tabFacturacionSeleccionada = 0;
+      },
+      error => {
+        console.log(error.text());
+      }
+    )
+  }
+
+  onActualizarPago(pago: UsuarioPago) {
+    this.usuarioPago = pago;
+    this.usuarioFacturacion = pago.usuarioFacturacion;
+    this.tabFacturacionSeleccionada = 1;
+  }
+
+  onBorrarPago(id: number) {
+    this.pagoService.borrarPago(id).subscribe(
+      res => {
+        this.getUsuarioActual();
+      },
+      error => {
+        console.log(error.text());
+      }
+    );
+  }
+
+  setPagoPredeterminado() {
+    this.pagoPredeterminado = false;
+    this.pagoService.establacerPagoDeterminado(this.usuarioPagoPredeterminadoId).subscribe(
+      res => {
+        this.getUsuarioActual();
+        this.pagoPredeterminado = true;
+      },
+      error => {
+        console.log(error.text());
+      }
+    );
+  }
+
   ngOnInit() {
     $('ul.tabs').tabs();
     $('ul.tabs').tabs('select_tab', 'tab_id');
@@ -86,18 +146,13 @@ export class MiPerfilComponent implements OnInit {
     )
 
     this.getUsuarioActual();
-  }
 
-  // onNuevoPago() {
-  //   this.pagoService.nuevoPago(this.usuarioPago).subscribe(
-  //     res => {
-  //       this.getUsuarioActual();
-  //       this.etiquetaFacturacionSeleccionada = 0;
-  //     },
-  //     error => {
-  //       console.log(error.text());
-  //     }
-  //   )
-  // }
+    this.usuarioFacturacion.usuarioFacturacionProvincia = "";
+    this.usuarioPago.tipo = "";
+    this.usuarioPago.mesExpiracion = "";
+    this.usuarioPago.añoExpiracion = "";
+    this.usuarioPago.usuarioFacturacion = this.usuarioFacturacion;
+    this.pagoPredeterminado = false;
+  }
 
 }

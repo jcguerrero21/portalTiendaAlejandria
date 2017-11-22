@@ -31,9 +31,9 @@
           <a href="#editar">Editar</a>
         </li>
         <li class="tab col s4">
-          <a href="#test-swipe-2">Test 2</a>
+          <a href="#pago">Pago</a>
         </li>
-        <li class="tab col s4">
+        <li class="tab col s3">
           <a href="#test-swipe-3">Test 3</a>
         </li>
       </ul>
@@ -48,7 +48,7 @@
           <input type="hidden" [(ngModel)]="usuario.id" name="id" />
           <div class="row">
             <div class="input-field col s6">
-              <input id="nombre" placeholder="" type="text"  class="validate activate"  required [(ngModel)]="usuario.nombre" name="nombre">
+              <input id="nombre" placeholder="" type="text" class="validate activate" required [(ngModel)]="usuario.nombre" name="nombre">
               <label for="nombre">Nombre*</label>
             </div>
             <div class="input-field col s6">
@@ -59,7 +59,7 @@
           <div class="row">
             <span *ngIf="usernameExits" style="color:red">El nombre de usuario ya existe</span>
             <div class="input-field col s12">
-              <input placeholder="" type="text" [(ngModel)]="usuario.username" name="username" id="username" class="validate" required>
+              <input placeholder=" " type="text" [(ngModel)]="usuario.username" name="username" id="username" class="validate" required>
               <label for="username">Nombre De Usuario*</label>
             </div>
           </div>
@@ -96,8 +96,67 @@
           </div>
         </form>
       </div>
-      <div id="test-swipe-2" class="col s12 red">Test 2</div>
-      <div id="test-swipe-3" class="col s12 green">Test 3</div>
+      <div id="pago" class="col s12 grey darken-4">
+        <div *ngIf="pagoPredeterminado" class="card-panel green lighten-4 green-text text-darken-4">
+          <strong>Pago predeterminado establecido correctamente</strong>
+        </div>
+        <div class="col s2"></div>
+        <div class="col s8" style="margin-top: 2%; margin-bottom: 2%">
+          <ul id="tabs-swipe-demo2" class="tabs">
+            <li class="tab col s4">
+              <a href="#ListaDeTarjetasCredito">Tarjetas</a>
+            </li>
+            <li class="tab col s4">
+              <a href="#AddUpdatedTarjetas">ADD Tarjeta Credito</a>
+            </li>
+            <li class="tab col s4">
+              <a href="#test-swipe-3">Test 3</a>
+            </li>
+          </ul>
+          <div id="ListaDeTarjetasCredito">
+            <form (ngSubmit)="setPagoPredeterminado()" method="post">
+              <table class="bordered responsive-table centered" style="margin-top: 2%">
+                <thead style="background-color: #fafafa">
+                  <tr>
+                    <th>Predeterminado</th>
+                    <th>Tarjeta Credito</th>
+                    <th>Operaciones</th>
+                  </tr>
+                </thead>
+
+                <tbody style="background-color: #eeeeee">
+                  <tr *ngFor="let usuarioPago of usuarioPagoLista">
+                    <td>
+                      <input type="radio" [(ngModel)]="usuarioPagoPredeterminadoId" name="usuarioPagoPredeterminadoId" id="usuarioPagoPredeterminadoId"
+                        [value]="usuarioPago.id" />
+                      <label for="usuarioPagoPredeterminadoId">Predeterminado</label>
+                    </td>
+                    <td>{{usuarioPago.nombreTarjeta}}</td>
+                    <td>
+                      <button class="btn-floating btn-tiny waves-effect waves-light" (click)="onActualizarPago(usuarioPago)">
+                        <i class="material-icons">edit</i>
+                      </button>
+                      <button class="btn-floating btn-tiny waves-effect waves-light red" (click)="onBorrarPago(usuarioPago)">
+                        <i class="material-icons">delete_forever</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button type="submit" style="margin-top: 2%" class="btn green waves-effect waves-light">Guardar</button>
+            </form>
+          </div>
+          <div id="AddUpdatedTarjetas">
+            <form (ngSubmit)="onNuevoPago()" method="post">
+                <div *ngIf="emailEnviado" class="card-panel green lighten-4 green-text text-darken-4">
+                    Se te ha enviado un mensaje a tu cuenta de correo, usted acaba de registrarse. Por favor valida tu email y actualiza tu contraseña.
+                </div>
+            </form>
+          </div>
+          <div id="test-swipe-3" class="col s12">Test 3</div>
+        </div>
+      </div>
+      <div id="test-swipe-3" class="col s12 grey lighten-3"></div>
     </div>
   </div>
 </div>
