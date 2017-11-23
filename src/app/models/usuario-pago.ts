@@ -6,7 +6,7 @@ export class UsuarioPago {
     public nombreTarjeta: string;
     public numeroTarjeta: string;
     public mesExpiracion: string;
-    public añoExpiracion: string;
+    public anioExpiracion: string;
     public cvc: number;
     public nombreTitular: string; 
     public pagoPredeterminado: boolean;

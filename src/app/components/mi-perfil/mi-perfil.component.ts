@@ -150,7 +150,7 @@ export class MiPerfilComponent implements OnInit {
     this.usuarioFacturacion.usuarioFacturacionProvincia = "";
     this.usuarioPago.tipo = "";
     this.usuarioPago.mesExpiracion = "";
-    this.usuarioPago.añoExpiracion = "";
+    this.usuarioPago.anioExpiracion = "";
     this.usuarioPago.usuarioFacturacion = this.usuarioFacturacion;
     this.pagoPredeterminado = false;
   }

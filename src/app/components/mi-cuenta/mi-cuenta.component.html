@@ -19,9 +19,10 @@
         </li>
       </ul>
       <div id="login" class="col s12 grey lighten-3">
-        <div *ngIf="loginError" style="color:red">
+        <div *ngIf="loginError" class="card-panel red lighten-4 red-text text-darken-4">
           Usuario o Contraseña incorrectos
         </div>
+
         <form (ngSubmit)="onLogin()" class="col s12">
           <div class="row">
             <div class="input-field col s12">
@@ -78,7 +79,7 @@
       </div>
       <div id="recuperarPassword" class="col s12 grey lighten-3">
         <div *ngIf="emailNoExiste" class="card-panel red lighten-4 red-text text-darken-4">
-            El email que has introducido no existe.
+          El email que has introducido no existe.
         </div>
         <div *ngIf="olvidePasswordCorreoEnviado" class="card-panel green lighten-4 green-text text-darken-4">
           Email enviado

@@ -103,14 +103,11 @@
         <div class="col s2"></div>
         <div class="col s8" style="margin-top: 2%; margin-bottom: 2%">
           <ul id="tabs-swipe-demo2" class="tabs">
-            <li class="tab col s4">
+            <li class="tab col s6">
               <a href="#ListaDeTarjetasCredito">Tarjetas</a>
             </li>
-            <li class="tab col s4">
+            <li class="tab col s6">
               <a href="#AddUpdatedTarjetas">ADD Tarjeta Credito</a>
-            </li>
-            <li class="tab col s4">
-              <a href="#test-swipe-3">Test 3</a>
             </li>
           </ul>
           <div id="ListaDeTarjetasCredito">
@@ -147,16 +144,138 @@
             </form>
           </div>
           <div id="AddUpdatedTarjetas">
-            <form (ngSubmit)="onNuevoPago()" method="post">
-                <div *ngIf="emailEnviado" class="card-panel green lighten-4 green-text text-darken-4">
-                    Se te ha enviado un mensaje a tu cuenta de correo, usted acaba de registrarse. Por favor valida tu email y actualiza tu contraseña.
+            <form (ngSubmit)="onNuevoPago()" class="col s12 grey lighten-3" method="post">
+              <div *ngIf="emailEnviado" class="card-panel green lighten-4 green-text text-darken-4">
+                Información Del Usuario Actualizada
+              </div>
+              <input hidden="hidden" name="id" [(ngModel)]="usuarioPago.id" />
+
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="nombreTarjeta" type="text" class="validate" [(ngModel)]="usuarioPago.nombreTarjeta" name="nombreTarjeta" required>
+                  <label for="nombreTarjeta">Nombre de la tarjeta *:</label>
                 </div>
+              </div>
+
+              <!-- Dirección De Facturación -->
+              <hr style="border: 2px solid;">
+              <h5 style="margin-left: 29%;">Dirección De Facturación</h5>
+              <hr style="border: 2px solid;">
+
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="usuarioFacturacionNombre" type="text" class="validate" [(ngModel)]="usuarioFacturacion.usuarioFacturacionNombre"
+                    name="usuarioFacturacionNombre" required>
+                  <label for="usuarioFacturacionNombre">Nombre*:</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="usuarioFacturacionCalle" type="text" class="validate" [(ngModel)]="usuarioFacturacion.usuarioFacturacionCalle"
+                    name="usuarioFacturacionCalle" required>
+                  <label for="usuarioFacturacionCalle">Dirección Facturación*:</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s4">
+                  <input id="usuarioFacturacionCiudad" type="text" class="validate" [(ngModel)]="usuarioFacturacion.usuarioFacturacionCiudad"
+                    name="usuarioFacturacionCiudad" required>
+                  <label for="usuarioFacturacionCiudad">Ciudad*:</label>
+                </div>
+                <div class="input-field col s4">
+                  <select materialize="material_select" id="usuarioFacturacionProvincia" [(ngModel)]="usuarioFacturacion.usuarioFacturacionProvincia"
+                    name="usuarioFacturacionProvincia" required>
+                    <option value="" disabled selected>Provincia*:</option>
+                    <option *ngFor="let provincia of listaProvincias">{{provincia}}</option>
+                  </select>
+                </div>
+                <div class="input-field col s4">
+                  <input id="usuarioFacturacionCodigoPostal" type="number" class="validate" [(ngModel)]="usuarioFacturacion.usuarioFacturacionCodigoPostal"
+                    name="usuarioFacturacionCodigoPostal" required>
+                  <label for="usuarioFacturacionCodigoPostal">CP*:</label>
+                </div>
+              </div>
+
+              <!-- Pago Usuario -->
+              <br>
+              <hr style="border: 2px solid;"> 
+              <h4 style="margin-left:19%">Información Tarjeta Crédito</h4>
+              <hr style="border: 2px solid;">
+
+              <img class="responsive-img" src="../../../assets/imagenes/creditcard.png">
+              <div class="row">
+                <div class="input-field col s12">
+                  <select materialize="material_select" id="tipoTarjeta" [(ngModel)]="usuarioPago.tipo" name="tipoTarjeta" required>
+                    <option value="" disabled selected>Tipo De Tarjeta*:</option>
+                    <option value="visa">Visa</option>
+                    <option value="mastercard">Mastercard</option>
+                    <option value="discover">Discover</option>
+                    <option value="amex">American Express</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="nombreTitular" type="text" class="validate" [(ngModel)]="usuarioPago.nombreTitular" name="nombreTitular" required>
+                  <label for="nombreTitular">Nombre Del Titular*:</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="numeroTarjeta" type="number" class="validate" [(ngModel)]="usuarioPago.numeroTarjeta" name="numeroTarjeta" required>
+                  <label for="numeroTarjeta">Número tarjeta*:</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s4">
+                  <select materialize="material_select" id="mesExpiracion" [(ngModel)]="usuarioPago.mesExpiracion" name="mesExpiracion" required>
+                    <option value="" disabled selected>Mes De Expiración*:</option>
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                  </select>
+                </div>
+                <div class="input-field col s4">
+                  <select materialize="material_select" id="anioExpiracion" [(ngModel)]="usuarioPago.anioExpiracion" name="anioExpiracion"
+                    required>
+                    <option value="" disabled selected>Año De Expiración*:</option>
+                    <option value="17">2017</option>
+                    <option value="18">2018</option>
+                    <option value="19">2019</option>
+                    <option value="20">2020</option>
+                    <option value="21">2021</option>
+                    <option value="22">2022</option>
+                    <option value="23">2023</option>
+                    <option value="24">2024</option>
+                    <option value="25">2025</option>
+                  </select>
+                </div>
+                <div class="input-field col s4">
+                    <input id="cvc" type="number" class="validate" [(ngModel)]="usuarioPago.cvc" name="cvc" required>
+                    <label for="cvc">CVC*:</label>
+                  </div>
+              </div>
+              <hr style="border: 2px solid;">
+              <br>
+              <div class="row">
+                <div class="col s2">
+                  <button type="submit" class="btn green waves-effect waves-light" id="btnGuardarIfoTarjetaCredio">Guardar</button>
+                </div>
+              </div>
             </form>
           </div>
-          <div id="test-swipe-3" class="col s12">Test 3</div>
         </div>
       </div>
-      <div id="test-swipe-3" class="col s12 grey lighten-3"></div>
+      <div id="test-swipe-3" class="col s12 grey lighten-3">454564654</div>
     </div>
   </div>
 </div>
