@@ -10,7 +10,6 @@ import { UsuarioFacturacion } from '../../models/usuario-facturacion';
 import { slide } from '../../animations/animations';
 
 declare var $: any;
-declare var Materialize: any;
 
 @Component({
   selector: 'app-mi-perfil',
@@ -19,7 +18,6 @@ declare var Materialize: any;
   animations: [slide]
 })
 export class MiPerfilComponent implements OnInit {
-  model: any;
 
   @HostBinding('@routeAnimation') routeAnimation = true;
   @HostBinding('style.display') display = 'block';
@@ -45,6 +43,7 @@ export class MiPerfilComponent implements OnInit {
   private usuarioPagoLista: UsuarioPago[] = [];
   private pagoPredeterminado: boolean;
   private usuarioPagoPredeterminadoId: number;
+  private listaProvincias: string[] = [];
 
   constructor(
     private loginService: LoginService,
@@ -146,6 +145,10 @@ export class MiPerfilComponent implements OnInit {
     )
 
     this.getUsuarioActual();
+
+    for (let provincias in AppConst.provincias) {
+      this.listaProvincias.push(provincias);
+    }
 
     this.usuarioFacturacion.usuarioFacturacionProvincia = "";
     this.usuarioPago.tipo = "";

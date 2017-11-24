@@ -45,7 +45,7 @@ export class PagoService {
     let tokenHeader = new Headers({
       'Content-Type': 'application/json',
       'x-auth-token': localStorage.getItem("xAuthToken")
-    });
+    }); 
     return this.http.post(url, id, { headers: tokenHeader });
   }
 
