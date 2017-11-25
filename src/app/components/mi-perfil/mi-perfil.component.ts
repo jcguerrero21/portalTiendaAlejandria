@@ -74,6 +74,15 @@ export class MiPerfilComponent implements OnInit {
     this.usuarioService.getUsuarioActual().subscribe(
       res => {
         this.usuario = res.json();
+        this.usuarioPagoLista = this.usuario.usuarioPagoList;
+
+        for (let usuarioPago in this.usuarioPagoLista) {
+          if(this.usuarioPagoLista[usuarioPago].pagoPredeterminado) {
+            this.usuarioPagoPredeterminadoId = this.usuarioPagoLista[usuarioPago].id;
+            break;
+          }
+        }
+
         this.datosObtenidos = true;
       },
       error => {

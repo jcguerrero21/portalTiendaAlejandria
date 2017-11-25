@@ -97,9 +97,6 @@
         </form>
       </div>
       <div id="pago" class="col s12 grey darken-4">
-        <div *ngIf="pagoPredeterminado" class="card-panel green lighten-4 green-text text-darken-4">
-          <strong>Pago predeterminado establecido correctamente</strong>
-        </div>
         <div class="col s2"></div>
         <div class="col s8" style="margin-top: 2%; margin-bottom: 2%">
           <ul id="tabs-swipe-demo2" class="tabs">
@@ -107,10 +104,13 @@
               <a href="#ListaDeTarjetasCredito">Tarjetas</a>
             </li>
             <li class="tab col s6">
-              <a href="#AddUpdatedTarjetas">ADD Tarjeta Credito</a>
+              <a href="#AddUpdatedTarjetas">Nueva Tarjeta</a>
             </li>
           </ul>
           <div id="ListaDeTarjetasCredito">
+            <div *ngIf="pagoPredeterminado" class="card-panel green lighten-4 green-text text-darken-4">
+              <strong>Petición correcta</strong>
+            </div>
             <form (ngSubmit)="setPagoPredeterminado()" method="post">
               <table class="bordered responsive-table centered" style="margin-top: 2%">
                 <thead style="background-color: #fafafa">
@@ -120,13 +120,12 @@
                     <th>Operaciones</th>
                   </tr>
                 </thead>
-
                 <tbody style="background-color: #eeeeee">
                   <tr *ngFor="let usuarioPago of usuarioPagoLista">
                     <td>
-                      <input type="radio" [(ngModel)]="usuarioPagoPredeterminadoId" name="usuarioPagoPredeterminadoId" id="usuarioPagoPredeterminadoId"
+                      <input class="with-gap" type="radio" [(ngModel)]="usuarioPagoPredeterminadoId" name="pagoPredeterminado" id="{{usuarioPago.id}}"
                         [value]="usuarioPago.id" />
-                      <label for="usuarioPagoPredeterminadoId">Predeterminado</label>
+                      <label for="{{usuarioPago.id}}"></label>
                     </td>
                     <td>{{usuarioPago.nombreTarjeta}}</td>
                     <td>
@@ -198,7 +197,7 @@
 
               <!-- Pago Usuario -->
               <br>
-              <hr style="border: 2px solid;"> 
+              <hr style="border: 2px solid;">
               <h4 style="margin-left:19%">Información Tarjeta Crédito</h4>
               <hr style="border: 2px solid;">
 
@@ -260,9 +259,9 @@
                   </select>
                 </div>
                 <div class="input-field col s4">
-                    <input id="cvc" type="number" class="validate" [(ngModel)]="usuarioPago.cvc" name="cvc" required>
-                    <label for="cvc">CVC*:</label>
-                  </div>
+                  <input id="cvc" type="number" class="validate" [(ngModel)]="usuarioPago.cvc" name="cvc" required>
+                  <label for="cvc">CVC*:</label>
+                </div>
               </div>
               <hr style="border: 2px solid;">
               <br>
