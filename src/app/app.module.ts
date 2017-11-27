@@ -8,6 +8,7 @@ import { routing } from './app.routing';
 import { LoginService } from './services/login.service';
 import { UsuarioService } from './services/usuario.service';
 import { PagoService } from './services/pago.service';
+import { EnvioService } from './services/envio.service';
 import { AppComponent } from './app.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -32,7 +33,8 @@ import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
   providers: [
     LoginService,
     UsuarioService,
-    PagoService
+    PagoService,
+    EnvioService
   ],
   bootstrap: [AppComponent]
 })

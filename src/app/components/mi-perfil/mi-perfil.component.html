@@ -33,8 +33,8 @@
         <li class="tab col s4">
           <a href="#pago">Pago</a>
         </li>
-        <li class="tab col s3">
-          <a href="#test-swipe-3">Test 3</a>
+        <li class="tab col s4">
+          <a href="#compra">Compra</a>
         </li>
       </ul>
       <div id="editar" class="col s12 grey lighten-3">
@@ -129,10 +129,10 @@
                     </td>
                     <td>{{usuarioPago.nombreTarjeta}}</td>
                     <td>
-                      <button class="btn-floating btn-tiny waves-effect waves-light" (click)="onActualizarPago(usuarioPago)">
+                      <!-- <button class="btn-floating btn-tiny waves-effect waves-light" (click)="onActualizarPago(usuarioPago.id)">
                         <i class="material-icons">edit</i>
-                      </button>
-                      <button class="btn-floating btn-tiny waves-effect waves-light red" (click)="onBorrarPago(usuarioPago)">
+                      </button> -->
+                      <button class="btn-floating btn-tiny waves-effect waves-light red" (click)="onBorrarPago(usuarioPago.id)">
                         <i class="material-icons">delete_forever</i>
                       </button>
                     </td>
@@ -144,8 +144,8 @@
           </div>
           <div id="AddUpdatedTarjetas">
             <form (ngSubmit)="onNuevoPago()" class="col s12 grey lighten-3" method="post">
-              <div *ngIf="emailEnviado" class="card-panel green lighten-4 green-text text-darken-4">
-                Información Del Usuario Actualizada
+              <div *ngIf="usuarioPagoInfo" class="card-panel green lighten-4 green-text text-darken-4">
+                Información Guardada
               </div>
               <input hidden="hidden" name="id" [(ngModel)]="usuarioPago.id" />
 
@@ -274,7 +274,102 @@
           </div>
         </div>
       </div>
-      <div id="test-swipe-3" class="col s12 grey lighten-3">454564654</div>
+      <div id="compra" class="col s12 grey lighten-3">
+        <div class="col s2"></div>
+        <div class="col s8" style="margin-top: 2%; margin-bottom: 2%">
+          <ul id="tabs-swipe-demo2" class="tabs">
+            <li class="tab col s6">
+              <a href="#ListaDireccionesEnvio">Dirección Envio</a>
+            </li>
+            <li class="tab col s6">
+              <a href="#AddUpdatedEnvio">Nueva Direccion</a>
+            </li>
+          </ul>
+          <div id="ListaDireccionesEnvio">
+            <div *ngIf="envioPredeterminado" class="card-panel green lighten-4 green-text text-darken-4">
+              <strong>Envio predeterminada cambiado correctamente</strong>
+            </div>
+            <form (ngSubmit)="setEnvioPredeterminado()" method="post">
+              <table class="bordered responsive-table centered" style="margin-top: 2%">
+                <thead style="background-color: #fafafa">
+                  <tr>
+                    <th>Predeterminado</th>
+                    <th>Dirección de envio</th>
+                    <th>Operaciones</th>
+                  </tr>
+                </thead>
+                <tbody style="background-color: #eeeeee">
+                  <tr *ngFor="let usuarioEnvio of usuarioEnvioList">
+                    <td>
+                      <input class="with-gap" type="radio" [(ngModel)]="usuarioPredeterminadoEnvioId" name="envioPredeterminado" id="{{usuarioEnvio.id}}"
+                        [value]="usuarioEnvio.id" />
+                      <label for="{{usuarioEnvio.id}}"></label>
+                    </td>
+                    <td>{{usuarioEnvio.usuarioEnvioCalle}}, {{usuarioEnvio.usuarioEnvioCiudad}}, {{usuarioEnvio.usuarioEnvioProvincia}},
+                      {{usuarioEnvio.usuarioEnvioPais}}
+                    </td>
+                    <td>
+                      <button class="btn-floating btn-tiny waves-effect waves-light" (click)="onActualizarEnvio(usuarioEnvio)">
+                        <i class="material-icons">edit</i>
+                      </button>
+                      <button class="btn-floating btn-tiny waves-effect waves-light red" (click)="onBorrarEnvio(usuarioEnvio)">
+                        <i class="material-icons">delete_forever</i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <button type="submit" style="margin-top: 2%" class="btn green waves-effect waves-light">Guardar</button>
+            </form>
+          </div>
+          <div id="AddUpdatedEnvio">
+            <form (ngSubmit)="onNuevoEnvio()" class="col s12 grey lighten-3" method="post">
+              <div *ngIf="usuarioEnvioInfo" class="card-panel green lighten-4 green-text text-darken-4">
+                Información De envio actualizada
+              </div>
+              <input hidden="hidden" name="id" [(ngModel)]="usuarioEnvio.id" />
+
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="nombreEnvio" type="text" class="validate" [(ngModel)]="usuarioEnvio.usuarioEnvioNombre" name="nombreEnvio" required>
+                  <label for="nombreEnvio">Nombre *:</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input id="usuarioEnvioCalle" type="text" class="validate" [(ngModel)]="usuarioEnvio.usuarioEnvioCalle" name="usuarioEnvioCalle"
+                    required>
+                  <label for="usuarioEnvioCalle">Dirección Envio*:</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s4">
+                  <input id="usuarioEnvioCiudad" type="text" class="validate" [(ngModel)]="usuarioEnvio.usuarioEnvioCiudad" name="usuarioEnvioCiudad"
+                    required>
+                  <label for="usuarioEnvioCiudad">Ciudad*:</label>
+                </div>
+                <div class="input-field col s4">
+                  <select materialize="material_select" id="usuarioEnvioProvincia" [(ngModel)]="usuarioEnvio.usuarioEnvioProvincia" name="usuarioEnvioProvincia"
+                    required>
+                    <option value="" disabled selected>Provincia*:</option>
+                    <option *ngFor="let provincia of listaProvincias">{{provincia}}</option>
+                  </select>
+                </div>
+                <div class="input-field col s4">
+                  <input id="usuarioEnvioCodigoPostal" type="number" class="validate" [(ngModel)]="usuarioEnvio.usuarioEnvioCodigoPostal" name="usuarioEnvioCodigoPostal"
+                    required>
+                  <label for="usuarioEnvioCodigoPostal">CP*:</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s2">
+                  <button type="submit" class="btn green waves-effect waves-light" id="btnGuardarEnvio">Guardar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -3,10 +3,12 @@ import { AppConst } from '../../constants/app.const';
 import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario.service';
 import { LoginService } from '../../services/login.service';
-import { Router } from '@angular/router';
 import { PagoService } from '../../services/pago.service';
+import { EnvioService } from '../../services/envio.service';
+import { Router } from '@angular/router';
 import { UsuarioPago } from '../../models/usuario-pago';
 import { UsuarioFacturacion } from '../../models/usuario-facturacion';
+import { UsuarioEnvio } from '../../models/usuario-envio';
 import { slide } from '../../animations/animations';
 
 declare var $: any;
@@ -37,24 +39,29 @@ export class MiPerfilComponent implements OnInit {
 
   private tabPerfilSeleccionada: number = 0;
   private tabFacturacionSeleccionada: number = 0;
+  private tabUsuarioEnvioSeleccionada: number = 0;
 
   private usuarioPago: UsuarioPago = new UsuarioPago();
   private usuarioFacturacion: UsuarioFacturacion = new UsuarioFacturacion();
   private usuarioPagoLista: UsuarioPago[] = [];
   private pagoPredeterminado: boolean;
+  private usuarioPagoInfo: boolean;
   private usuarioPagoPredeterminadoId: number;
   private listaProvincias: string[] = [];
+
+  private usuarioEnvio: UsuarioEnvio = new UsuarioEnvio();
+  private usuarioEnvioList: UsuarioEnvio[] = [];
+  private usuarioPredeterminadoEnvioId: number;
+  private envioPredeterminado: boolean;
+  private usuarioEnvioInfo: boolean;
 
   constructor(
     private loginService: LoginService,
     private usuarioService: UsuarioService,
-    private router: Router,
-    private pagoService: PagoService
+    private pagoService: PagoService,
+    private envioService: EnvioService,
+    private router: Router
   ) { }
-
-  cambioFacturacionSeleccionado(val: number) {
-    this.tabFacturacionSeleccionada = val;
-  }
 
   onActualizarInfoUsuario() {
     this.usuarioService.actualizarUsuarioInfo(this.usuario, this.nuevaPassword, this.passwordActual).subscribe(
@@ -77,7 +84,7 @@ export class MiPerfilComponent implements OnInit {
         this.usuarioPagoLista = this.usuario.usuarioPagoList;
 
         for (let usuarioPago in this.usuarioPagoLista) {
-          if(this.usuarioPagoLista[usuarioPago].pagoPredeterminado) {
+          if (this.usuarioPagoLista[usuarioPago].pagoPredeterminado) {
             this.usuarioPagoPredeterminadoId = this.usuarioPagoLista[usuarioPago].id;
             break;
           }
@@ -99,7 +106,7 @@ export class MiPerfilComponent implements OnInit {
     this.pagoService.nuevoPago(this.usuarioPago).subscribe(
       res => {
         this.getUsuarioActual();
-        this.tabFacturacionSeleccionada = 0;
+        this.usuarioPagoInfo = true;
       },
       error => {
         console.log(error.text());
@@ -130,6 +137,49 @@ export class MiPerfilComponent implements OnInit {
       res => {
         this.getUsuarioActual();
         this.pagoPredeterminado = true;
+      },
+      error => {
+        console.log(error.text());
+      }
+    );
+  }
+
+  onNuevaCompra() {
+    this.envioService.nuevoEnvio(this.usuarioEnvio).subscribe(
+      res => {
+        this.getUsuarioActual();
+        this.usuarioEnvioInfo = true;
+      },
+      error => {
+        console.log(error.text());
+      }
+    );
+  }
+
+  onActualizarEnvio(envio: UsuarioEnvio) {
+    this.usuarioEnvio = envio;
+    this.tabUsuarioEnvioSeleccionada = 1;
+  }
+
+  onBorrarEnvio(id: number) {
+    this.envioService.borrarEnvio(id).subscribe(
+      res => {
+        this.getUsuarioActual();
+      },
+      error => {
+        this.loggedIn = false;
+        console.log("sesión inactiva");
+        this.router.navigate(['/miCuenta']);
+      }
+    );
+  }
+
+  setEnvioPredeterminado() {
+    this.envioPredeterminado = false;
+    this.envioService.establacerEnvioDeterminado(this.usuarioPredeterminadoEnvioId).subscribe(
+      res => {
+        this.getUsuarioActual();
+        this.envioPredeterminado = true;
       },
       error => {
         console.log(error.text());
