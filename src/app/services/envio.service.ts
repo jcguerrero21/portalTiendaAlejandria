@@ -20,7 +20,7 @@ export class EnvioService {
   }
 
   getUsuarioEnvioList() {
-    let url = this.serverPath + "/envio/getEnvioLista";
+    let url = this.serverPath + "/envio/getUsuarioEnvioLista";
 
     let tokenHeader = new Headers({
       'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export class EnvioService {
   }
 
   establacerEnvioDeterminado(id: number) {
-    let url = this.serverPath + "/pago/establecerEnvioDeterminado";
+    let url = this.serverPath + "/envio/establecerEnvioDeterminado";
 
     let tokenHeader = new Headers({
       'Content-Type': 'application/json',

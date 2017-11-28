@@ -54,6 +54,7 @@ export class MiPerfilComponent implements OnInit {
   private usuarioPredeterminadoEnvioId: number;
   private envioPredeterminado: boolean;
   private usuarioEnvioInfo: boolean;
+  private borrarEnvioInfo: boolean;
 
   constructor(
     private loginService: LoginService,
@@ -77,27 +78,6 @@ export class MiPerfilComponent implements OnInit {
     );
   }
 
-  getUsuarioActual() {
-    this.usuarioService.getUsuarioActual().subscribe(
-      res => {
-        this.usuario = res.json();
-        this.usuarioPagoLista = this.usuario.usuarioPagoList;
-
-        for (let usuarioPago in this.usuarioPagoLista) {
-          if (this.usuarioPagoLista[usuarioPago].pagoPredeterminado) {
-            this.usuarioPagoPredeterminadoId = this.usuarioPagoLista[usuarioPago].id;
-            break;
-          }
-        }
-
-        this.datosObtenidos = true;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
   // ngAfterViewChecked() {
   //   Materialize.updateTextFields();
   // }
@@ -107,11 +87,13 @@ export class MiPerfilComponent implements OnInit {
       res => {
         this.getUsuarioActual();
         this.usuarioPagoInfo = true;
+        this.usuarioPago = new UsuarioPago();
+        this.usuarioFacturacion = new UsuarioFacturacion();
       },
       error => {
         console.log(error.text());
       }
-    )
+    );
   }
 
   onActualizarPago(pago: UsuarioPago) {
@@ -144,11 +126,12 @@ export class MiPerfilComponent implements OnInit {
     );
   }
 
-  onNuevaCompra() {
+  onNuevoEnvio() {
     this.envioService.nuevoEnvio(this.usuarioEnvio).subscribe(
       res => {
         this.getUsuarioActual();
         this.usuarioEnvioInfo = true;
+        this.usuarioEnvio = new UsuarioEnvio();
       },
       error => {
         console.log(error.text());
@@ -165,6 +148,7 @@ export class MiPerfilComponent implements OnInit {
     this.envioService.borrarEnvio(id).subscribe(
       res => {
         this.getUsuarioActual();
+        this.borrarEnvioInfo = true;
       },
       error => {
         this.loggedIn = false;
@@ -183,6 +167,35 @@ export class MiPerfilComponent implements OnInit {
       },
       error => {
         console.log(error.text());
+      }
+    );
+  }
+
+  getUsuarioActual() {
+    this.usuarioService.getUsuarioActual().subscribe(
+      res => {
+        this.usuario = res.json();
+        this.usuarioPagoLista = this.usuario.usuarioPagoList;
+        this.usuarioEnvioList = this.usuario.usuarioEnvioList;
+
+        for (let usuarioPago in this.usuarioPagoLista) {
+          if (this.usuarioPagoLista[usuarioPago].pagoPredeterminado) {
+            this.usuarioPagoPredeterminadoId = this.usuarioPagoLista[usuarioPago].id;
+            break;
+          }
+        }
+
+        for (let usuarioEnvio in this.usuarioEnvioList) {
+          if (this.usuarioEnvioList[usuarioEnvio].usuarioEnvioPredeterminado) {
+            this.usuarioPredeterminadoEnvioId = this.usuarioEnvioList[usuarioEnvio].id;
+            break;
+          }
+        }
+
+        this.datosObtenidos = true;
+      },
+      error => {
+        console.log(error);
       }
     );
   }
@@ -209,12 +222,17 @@ export class MiPerfilComponent implements OnInit {
       this.listaProvincias.push(provincias);
     }
 
+    //inicialización facturacion
     this.usuarioFacturacion.usuarioFacturacionProvincia = "";
     this.usuarioPago.tipo = "";
     this.usuarioPago.mesExpiracion = "";
     this.usuarioPago.anioExpiracion = "";
     this.usuarioPago.usuarioFacturacion = this.usuarioFacturacion;
     this.pagoPredeterminado = false;
+
+    //inicialización envio
+    this.usuarioEnvio.usuarioEnvioProvincia = "";
+    this.envioPredeterminado = false;
   }
 
 }

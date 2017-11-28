@@ -1,4 +1,5 @@
 import {UsuarioPago} from './usuario-pago';
+import {UsuarioEnvio} from './usuario-envio';
 
 export class Usuario {
     public id: number;
@@ -10,4 +11,5 @@ export class Usuario {
     public telefono: string;
     public activo: boolean;
     public usuarioPagoList: UsuarioPago[];
+    public usuarioEnvioList: UsuarioEnvio[];
 }

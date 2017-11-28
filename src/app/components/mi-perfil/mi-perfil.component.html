@@ -96,7 +96,7 @@
           </div>
         </form>
       </div>
-      <div id="pago" class="col s12 grey darken-4">
+      <div id="pago" class="col s12">
         <div class="col s2"></div>
         <div class="col s8" style="margin-top: 2%; margin-bottom: 2%">
           <ul id="tabs-swipe-demo2" class="tabs">
@@ -287,8 +287,11 @@
           </ul>
           <div id="ListaDireccionesEnvio">
             <div *ngIf="envioPredeterminado" class="card-panel green lighten-4 green-text text-darken-4">
-              <strong>Envio predeterminada cambiado correctamente</strong>
+              <strong>Petición correcto</strong>
             </div>
+            <!-- <div *ngIf="borrarEnvioInfo" class="card-panel green lighten-4 green-text text-darken-4" id="todoCorrecto">
+              Información borrada correctamente
+            </div> -->
             <form (ngSubmit)="setEnvioPredeterminado()" method="post">
               <table class="bordered responsive-table centered" style="margin-top: 2%">
                 <thead style="background-color: #fafafa">
@@ -306,13 +309,15 @@
                       <label for="{{usuarioEnvio.id}}"></label>
                     </td>
                     <td>{{usuarioEnvio.usuarioEnvioCalle}}, {{usuarioEnvio.usuarioEnvioCiudad}}, {{usuarioEnvio.usuarioEnvioProvincia}},
-                      {{usuarioEnvio.usuarioEnvioPais}}
+                      {{usuarioEnvio.usuarioEnvioCodigoPostal}}
                     </td>
                     <td>
-                      <button class="btn-floating btn-tiny waves-effect waves-light" (click)="onActualizarEnvio(usuarioEnvio)">
-                        <i class="material-icons">edit</i>
-                      </button>
-                      <button class="btn-floating btn-tiny waves-effect waves-light red" (click)="onBorrarEnvio(usuarioEnvio)">
+                      <!-- <button class="btn-floating btn-tiny waves-effect waves-light" (click)="onActualizarEnvio(usuarioEnvio)">
+                        <a href="#AddUpdatedEnvio">
+                          <i class="material-icons">edit</i>
+                        </a>
+                      </button> -->
+                      <button class="btn-floating btn-tiny waves-effect waves-light red" (click)="onBorrarEnvio(usuarioEnvio.id)">
                         <i class="material-icons">delete_forever</i>
                       </button>
                     </td>
@@ -324,9 +329,6 @@
           </div>
           <div id="AddUpdatedEnvio">
             <form (ngSubmit)="onNuevoEnvio()" class="col s12 grey lighten-3" method="post">
-              <div *ngIf="usuarioEnvioInfo" class="card-panel green lighten-4 green-text text-darken-4">
-                Información De envio actualizada
-              </div>
               <input hidden="hidden" name="id" [(ngModel)]="usuarioEnvio.id" />
 
               <div class="row">
@@ -360,6 +362,9 @@
                     required>
                   <label for="usuarioEnvioCodigoPostal">CP*:</label>
                 </div>
+              </div>
+              <div *ngIf="usuarioEnvioInfo" class="card-panel green lighten-4 green-text text-darken-4" id="todoCorrecto">
+                Información de envio insertada correctamente
               </div>
               <div class="row">
                 <div class="col s2">
