@@ -1,0 +1,11 @@
+img.pequeña{
+    width: 50%; height: 50%;
+}
+
+img.mediana{
+    width: 10px; height: 10px;
+}
+
+img.grande{
+    width: 90%px; height: 90%;
+}

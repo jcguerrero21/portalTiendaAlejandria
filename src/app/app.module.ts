@@ -19,6 +19,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { MiCuentaComponent } from './components/mi-cuenta/mi-cuenta.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { ListaLibrosComponent } from './components/lista-libros/lista-libros.component';
+import { DetalleLibroComponent } from './components/detalle-libro/detalle-libro.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ListaLibrosComponent } from './components/lista-libros/lista-libros.com
     NavBarComponent,
     MiCuentaComponent,
     MiPerfilComponent,
-    ListaLibrosComponent
+    ListaLibrosComponent,
+    DetalleLibroComponent
   ],
   imports: [
     BrowserModule,

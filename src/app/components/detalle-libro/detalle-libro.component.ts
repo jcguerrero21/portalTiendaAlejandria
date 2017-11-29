@@ -1,31 +1,31 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
+import { AppConst } from 'app/constants/app.const';
 import { Libro } from '../../models/libro';
 import { LibroService } from '../../services/libro.service';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { Http } from '@angular/http';
-import { AppConst } from '../../constants/app.const';
 import { slide } from '../../animations/animations';
 
-declare var $: any;
-
 @Component({
-  selector: 'app-lista-libros',
-  templateUrl: './lista-libros.component.html',
-  styleUrls: ['./lista-libros.component.css'],
+  selector: 'app-detalle-libro',
+  templateUrl: './detalle-libro.component.html',
+  styleUrls: ['./detalle-libro.component.css'],
   animations: [slide]
 })
-export class ListaLibrosComponent implements OnInit {
+export class DetalleLibroComponent implements OnInit {
 
   @HostBinding('@routeAnimation') routeAnimation = true;
   @HostBinding('style.display') display = 'block';
   @HostBinding('style.position') position = 'relative';
 
-  public filtroConsulta = "";
-  public rowsOnPage = 5;
-
-  private seleccionarLibro: Libro;
-  private listaLibros: Libro[];
+  private libroId: number;
+  private libro: Libro = new Libro();
   private servidorPath = AppConst.servidorPath;
+  private numeroList: number[] = [1,2,3,4,5,6,7,8,9];
+  private qty: number;
+
+  private addLibroCorrectamente: boolean = false;
+  private noHayStock: boolean = false;
 
   constructor(
     private libroService: LibroService,
@@ -34,22 +34,24 @@ export class ListaLibrosComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
-  onSelect(libro: Libro) {
-    this.seleccionarLibro = libro;
-    this.router.navigate(['/libroDetalle', this.seleccionarLibro.id]);
+  onAddAlCarrito(){
   }
 
   ngOnInit() {
-    
-    this.libroService.getListaLibros().subscribe(
+    this.route.params.forEach((params: Params) => {
+      this.libroId = Number.parseInt(params['id']);
+    });
+
+    this.libroService.getLibro(this.libroId).subscribe(
       res => {
-        console.log(res.json());
-        this.listaLibros = res.json();
+        this.libro = res.json();
       },
-      err => {
-        console.log(err);
+      error => {
+        console.log(error);
       }
     );
+
+    this.qty = 1;
   }
 
 }

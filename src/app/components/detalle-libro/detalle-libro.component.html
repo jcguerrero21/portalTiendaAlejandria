@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <img class="responsive-img" src="../../../assets/imagenes/cabeceraDetalle.png">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="row" style="margin-top: 4%;">
+      <div class="col s3">
+        <a routerLink="/listaLibros">
+          <i class="material-icons">arrow_back</i>Volver al listado de libros</a>
+        <br>
+        <img class="responsive-img" [src]="'http://localhost:8181/image/libro/'+libro.id+'.png'">
+      </div>
+      <div class="col s9">
+        <h3>
+          <span *ngIf="addLibroCorrectamente" style="color:forestgreen">
+            <i class="material-icons">shopping_cart</i>Añadido a la cesta</span>
+        </h3>
+        <h3>
+          <span *ngIf="noHayStock" style="color:red">Vaya, hay
+            <span>{{libro.numeroDeStock}}</span> en stock. </span>
+        </h3>
+
+        <h3>{{libro.titulo}}</h3>
+        <div class="row">
+          <div class="col s5">
+            <h5>
+              <strong>Autor: </strong>
+              <span>{{libro.autor}}</span>
+            </h5>
+            <p>
+              <strong>Editorial: </strong>
+              <span>{{libro.editorial}}</span>
+            </p>
+            <p>
+              <strong>Fecha de publicación: </strong>
+              <span>{{libro.fechaDePublicacion}}</span>
+            </p>
+            <p>
+              <strong>Idioma: </strong>
+              <span>{{libro.idioma}}</span>
+            </p>
+            <p>
+              <strong>Categoría: </strong>
+              <span>{{libro.categoria}}</span>
+            </p>
+            <p>
+              <strong>
+                <span>{{libro.formato}}</span>:</strong>
+              <span>{{libro.numeroDePaginas}}</span> páginas</p>
+            <p>
+              <strong>ISBN: </strong>
+              <span>{{libro.isbn}}</span>
+            </p>
+            <p>
+              <strong>Categoría: </strong>
+              <span>{{libro.categoria}}</span>
+            </p>
+            <p>
+              <strong>Peso: </strong>
+              <span>{{libro.pesoDelEnvio}}</span> Kg</p>
+          </div>
+          <div class="col s7">
+            <div class="card horizontal">
+              <div class="card-image">
+              </div>
+              <div class="card-stacked">
+                <div class="card-content">
+                  <div class="col s12">
+                    <h4 *ngIf="libro.numeroDeStock>10" style="color:green;">En stock</h4>
+                    <h4 *ngIf="libro.numeroDeStock<10 && libro.numeroDeStock>0" style="color:green;">Solo quedan
+                      <span>{{libro.numeroDeStock}}</span> En stock</h4>
+                    <h4 *ngIf="libro.numeroDeStock==0" style="color:red;">No hay stock</h4>
+                    <h4>Nuestro Precio:
+                      <span style="color: #db3208;">{{libro.nuestroPrecio}} €</span>
+                    </h4>
+                    <p>Otros sitios:
+                      <span style="text-decoration: line-through">{{libro.listaDePrecios}}</span>
+                    </p>
+                    <p>Tu ahorras:
+                      <span>{{libro.listaDePrecios-libro.nuestroPrecio}} €</span>
+                    </p>
+                  </div>
+                  <div class="col s10">
+                    Cantidad:
+                    <div class="input-field inline">
+                      <select materialize="material_select" [(ngModel)]="qty">
+                        <option *ngFor="let x of numeroList" [ngValue]="x">{{x}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-action">
+                  <div class="cols s12">
+                    <button [disabled]="libro.numeroDeStock==0" (click)="onAddAlCarrito" class="btn blue waves-effect waves-light">
+                      <i class="material-icons">add_shopping_cart</i> Añadir</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <p>
+        <strong>Descripción:</strong> {{libro.descripcion}}</p>
+    </div>
+  </div>
+</div>

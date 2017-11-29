@@ -4,6 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { MiCuentaComponent } from './components/mi-cuenta/mi-cuenta.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
+import { ListaLibrosComponent } from './components/lista-libros/lista-libros.component';
+import { DetalleLibroComponent } from './components/detalle-libro/detalle-libro.component';
+
 
 const appRoutes: Routes = [
     {
@@ -22,6 +25,14 @@ const appRoutes: Routes = [
     {
         path: 'miPerfil',
         component: MiPerfilComponent
+    },
+    {
+        path: 'listaLibros',
+        component: ListaLibrosComponent
+    },
+    {
+        path: 'libroDetalle/:id',
+        component: DetalleLibroComponent
     }
 
 ];
