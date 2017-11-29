@@ -22,7 +22,7 @@ export class DetalleLibroComponent implements OnInit {
   private libro: Libro = new Libro();
   private servidorPath = AppConst.servidorPath;
   private numeroList: number[] = [1,2,3,4,5,6,7,8,9];
-  private qty: number;
+  private cantidad: number;
 
   private addLibroCorrectamente: boolean = false;
   private noHayStock: boolean = false;
@@ -51,7 +51,7 @@ export class DetalleLibroComponent implements OnInit {
       }
     );
 
-    this.qty = 1;
+    this.cantidad = 1;
   }
 
 }

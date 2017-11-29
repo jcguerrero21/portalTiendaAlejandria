@@ -4,12 +4,12 @@ import { AppConst } from '../constants/app.const';
 
 @Injectable()
 export class LibroService {
-  private serverPath: string = AppConst.servidorPath;
+  private servidorPath: string = AppConst.servidorPath;
 
   constructor(private http: Http) { }
 
   getListaLibros() {
-    let url = this.serverPath + "/libro/listaLibros";
+    let url = this.servidorPath + "/libro/listaLibros";
 
     let tokenHeader = new Headers({
       'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ export class LibroService {
   }
 
   getLibro(id: number) {
-    let url = this.serverPath + "/libro/" + id;
+    let url = this.servidorPath + "/libro/" + id;
 
     let tokenHeader = new Headers({
       'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export class LibroService {
   }
 
   buscarLibro(palabraClave: string) {
-    let url = this.serverPath + "/libro/buscarLibro";
+    let url = this.servidorPath + "/libro/buscarLibro";
 
     let tokenHeader = new Headers({
       'Content-Type': 'application/json',

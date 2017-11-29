@@ -5,12 +5,12 @@ import { UsuarioEnvio } from 'app/models/usuario-envio';
 
 @Injectable()
 export class EnvioService {
-  private serverPath: string = AppConst.servidorPath;
+  private servidorPath: string = AppConst.servidorPath;
 
   constructor(private http: Http) { }
 
   nuevoEnvio(envio: UsuarioEnvio) {
-    let url = this.serverPath + "/envio/add";
+    let url = this.servidorPath + "/envio/add";
 
     let tokenHeader = new Headers({
       'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ export class EnvioService {
   }
 
   getUsuarioEnvioList() {
-    let url = this.serverPath + "/envio/getUsuarioEnvioLista";
+    let url = this.servidorPath + "/envio/getUsuarioEnvioLista";
 
     let tokenHeader = new Headers({
       'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export class EnvioService {
   }
 
   borrarEnvio(id: number) {
-    let url = this.serverPath + "/envio/borrar";
+    let url = this.servidorPath + "/envio/borrar";
 
     let tokenHeader = new Headers({
       'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export class EnvioService {
   }
 
   establacerEnvioDeterminado(id: number) {
-    let url = this.serverPath + "/envio/establecerEnvioDeterminado";
+    let url = this.servidorPath + "/envio/establecerEnvioDeterminado";
 
     let tokenHeader = new Headers({
       'Content-Type': 'application/json',
