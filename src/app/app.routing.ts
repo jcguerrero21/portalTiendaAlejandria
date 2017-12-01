@@ -6,7 +6,7 @@ import { MiCuentaComponent } from './components/mi-cuenta/mi-cuenta.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { ListaLibrosComponent } from './components/lista-libros/lista-libros.component';
 import { DetalleLibroComponent } from './components/detalle-libro/detalle-libro.component';
-
+import { CarritoCompraComponent } from './components/carrito-compra/carrito-compra.component';
 
 const appRoutes: Routes = [
     {
@@ -33,6 +33,10 @@ const appRoutes: Routes = [
     {
         path: 'libroDetalle/:id',
         component: DetalleLibroComponent
+    },
+    {
+        path: 'carritoCompra',
+        component: CarritoCompraComponent
     }
 
 ];
