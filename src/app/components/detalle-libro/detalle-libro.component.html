@@ -16,10 +16,10 @@
       <div class="col s9">
         <h3>
           <span *ngIf="addLibroCorrectamente" style="color:forestgreen">
-            <i class="material-icons">shopping_cart</i>Añadido a la cesta</span>
+            <i class="material-icons">check</i> Libro Añadido a la cesta</span>
         </h3>
         <h3>
-          <span *ngIf="noHayStock" style="color:red">Vaya, hay
+          <span *ngIf="noHayStock" style="color:red"><i class="material-icons right">child_care</i>Vaya, hay
             <span>{{libro.numeroDeStock}}</span> en stock. </span>
         </h3>
 
@@ -94,7 +94,7 @@
                 </div>
                 <div class="card-action">
                   <div class="cols s12">
-                    <button [disabled]="libro.numeroDeStock==0" (click)="onAddAlCarrito" class="btn blue waves-effect waves-light">
+                    <button [disabled]="libro.numeroDeStock==0" (click)="onAddAlCarrito()" class="btn blue waves-effect waves-light">
                       <i class="material-icons">add_shopping_cart</i> Añadir</button>
                   </div>
                 </div>

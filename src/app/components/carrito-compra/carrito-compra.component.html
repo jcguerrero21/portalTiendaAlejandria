@@ -5,15 +5,12 @@
     </div>
   </div>
 
-  <div class="row" style="margin-top: 15%">
+  <div class="row" style="margin-top: 5%">
     <div class="col s12">
       <div class="row">
         <div class="col s6 text-left">
           <button class="btn blue waves-effect waves-yellow" routerLink="/listaLibros">
             <i class="material-icons right">add_shopping_cart</i> Continuar Comprando</button>
-        </div>
-        <div class="col s6 text-right">
-          <a [style.color]="'blue'" class="waves-effect waves-yellow btn-flat" routerLink="/listaLibros">Check Out</a>
         </div>
       </div>
       <br>
@@ -27,51 +24,53 @@
         Vaya, tu carrito esta vacío. mira si puedes encontrar lo que buscas en nuestro librería y agrégalo al carrito
       </div>
       <div class="row">
-        <div class="col s8">
+        <div class="col s5">
           <h4>Productos</h4>
+        </div>
+        <div class="col s3">
+          <h4>Precio</h4>
         </div>
         <div class="col s2">
           <h4>Cantidad</h4>
         </div>
       </div>
-
-      <div class="row" *ngFor="let carritoItem of carritoItemLista">
-        <hr/>
-        <div class="col s2">
-          <a [style.color]="'green'" class="waves-effect waves-yellow btn-flat" (click)="onSelect(carritoItem.libro)">
-            <img class="responsive-img" style="width: 50%; height: 50%;" [src]="'http://localhost:8181/image/libro/'+carritoItem.libro.id+'.png'">
-          </a>
-        </div>
-        <div class="col s6">
-          <a class="pointer" class="waves-effect waves-yellow btn-flat" (click)="onSelect(carritoItem.libro)">
-            <h4>{{carritoItem.libro.titulo}}</h4>
-          </a>
-          <p *ngIf="carritoItem.libro.numeroDeStock > 10" style="color:green;">En Stock</p>
-          <p *ngIf="carritoItem.libro.numeroDeStock < 10 && carritoItem.libro.numeroDeStock > 0">Solo hay
-            <span>{{carritoItem.libro.numeroDeStock}}</span> En Stock</p>
-          <p *ngIf="carritoItem.libro.numeroDeStock == 0" style="color:darkred;">No hay Stock</p>
-          <a class="pointer" (click)="onBorrarCarritoItem(carritoItem)">Borrar</a>
-        </div>
-        <div class="col s2">
-          <h5 style="color:#db3208;font-size:large;">
-            <span [ngClass]="{'text-strike': carritoItem.libro.numeroDeStock == 0}">{{carritoItem.libro.nuestroPrecio}} €</span>
-          </h5>
-        </div>
-        <div class="col s2">
-          <input hidden="hidden" name="id" [(ngModel)]="carritoItem.id" />
-          <input id="carritoItem.id" name="cantidad" [disabled]="carritoItem.libro.numeroDeStock==0" [(ngModel)]="carritoItem.cantidad"
-            (ngModelChange)="carritoItem.actualizar">
-          <a class="waves-effect waves-white btn-flat" *ngIf="carritoItem.actualizar" class="pointer" (click)="onActualizarCarritoItem(carritoItem)">Actualizar</a>
-        </div>
+    </div>
+    <hr>
+    <div class="row" *ngFor="let carritoItem of carritoItemLista">
+      <div class="col s2">
+        <a (click)="onSelect(carritoItem.libro)">
+          <img class="responsive-img" style="width: 50%; height: 30%;" [src]="'http://localhost:8181/image/libro/'+carritoItem.libro.id+'.png'">
+        </a>
       </div>
-      <div class="row">
-        <hr>
-        <h4 class="col s12 text-right">
-          <strong style="font-size:large">Precio Total (
-            <span>{{carritoItemNumero}}</span> artículos): </strong>
-          <span style="color:#db3208;font-size: large">{{carritoCompra.granTotal}} €</span>
-        </h4>
+      <div class="col s4">
+        <a class="waves-effect btn-flat tex-left" (click)="onSelect(carritoItem.libro)">
+          <h6>{{carritoItem.libro.titulo}}</h6>
+        </a>
+        <p *ngIf="carritoItem.libro.numeroDeStock > 10" style="color:green; margin-left: 9%">En Stock</p>
+        <p *ngIf="carritoItem.libro.numeroDeStock < 10 && carritoItem.libro.numeroDeStock > 0" style="margin-left: 7%;color:red">Solo hay
+          <span>{{carritoItem.libro.numeroDeStock}}</span> En Stock</p>
+        <p *ngIf="carritoItem.libro.numeroDeStock == 0" style="color:darkred;">No hay Stock</p>
+        <p class="btn amber" (click)="onBorrarCarritoItem(carritoItem)" style="margin-left: 4%">Borrar</p>
       </div>
+      <div class="col s2">
+        <h5 style="color:#db3208;font-size:large;">
+          <span [ngClass]="{'text-strike': carritoItem.libro.numeroDeStock == 0}">{{carritoItem.libro.nuestroPrecio}} €</span>
+        </h5>
+      </div>
+      <div class="col s2">
+        <input hidden="hidden" name="id" [(ngModel)]="carritoItem.id" />
+        <input id="carritoItem.id" name="cantidad" [disabled]="carritoItem.libro.numeroDeStock==0" [(ngModel)]="carritoItem.cantidad"
+          (ngModelChange)="carritoItem.actualizar=true">
+        <a class="btn purple waves-effect waves-purple" *ngIf="carritoItem.actualizar" (click)="onActualizarCarritoItem(carritoItem)">Actualizar</a>
+      </div>
+    </div>
+    <div class="row">
+      <hr>
+      <h4 class="col s12 text-right">
+        <strong style="font-size:large">Precio Total (
+          <span>{{carritoItemNumero}}</span> artículos): </strong>
+        <span style="color:#db3208;font-size: large">{{carritoCompra.granTotal}} €</span>
+      </h4>
     </div>
   </div>
 </div>

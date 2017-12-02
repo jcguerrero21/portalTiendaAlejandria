@@ -2,6 +2,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { AppConst } from 'app/constants/app.const';
 import { Libro } from '../../models/libro';
 import { LibroService } from '../../services/libro.service';
+import { CarritoService } from '../../services/carrito.service';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { slide } from '../../animations/animations';
@@ -29,12 +30,23 @@ export class DetalleLibroComponent implements OnInit {
 
   constructor(
     private libroService: LibroService,
+    private carritoService: CarritoService,
     private router: Router,
     private http: Http,
     private route: ActivatedRoute
   ) { }
 
   onAddAlCarrito(){
+    this.carritoService.addItem(this.libroId, this.cantidad).subscribe(
+      res => {
+        console.log(res.text());
+        this.addLibroCorrectamente = true;
+      },
+      error => {
+        console.log(error.text());
+        this.noHayStock = true;
+      }
+    );
   }
 
   ngOnInit() {

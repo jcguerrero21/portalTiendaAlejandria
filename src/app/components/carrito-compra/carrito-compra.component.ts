@@ -35,7 +35,7 @@ export class CarritoCompraComponent implements OnInit {
     this.carritoService.borrarCarritoItem(carritoItem.id).subscribe(
       res => {
         console.log(res.text());
-        this.getCarritoListaItem;
+        this.getCarritoListaItem();
         this.getCarritoCompra();
       },
       error => {
