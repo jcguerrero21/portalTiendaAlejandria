@@ -13,6 +13,8 @@ import { PagoService } from './services/pago.service';
 import { EnvioService } from './services/envio.service';
 import { LibroService } from './services/libro.service';
 import { CarritoService } from './services/carrito.service';
+import { FacturaService } from './services/factura.service';
+import { CheckoutService } from './services/checkout.service';
 
 import { AppComponent } from './app.component';
 import { InicioComponent } from './components/inicio/inicio.component';
@@ -22,6 +24,7 @@ import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { ListaLibrosComponent } from './components/lista-libros/lista-libros.component';
 import { DetalleLibroComponent } from './components/detalle-libro/detalle-libro.component';
 import { CarritoCompraComponent } from './components/carrito-compra/carrito-compra.component';
+import { FacturaComponent } from './components/factura/factura.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,8 @@ import { CarritoCompraComponent } from './components/carrito-compra/carrito-comp
     MiPerfilComponent,
     ListaLibrosComponent,
     DetalleLibroComponent,
-    CarritoCompraComponent
+    CarritoCompraComponent,
+    FacturaComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,9 @@ import { CarritoCompraComponent } from './components/carrito-compra/carrito-comp
     PagoService,
     EnvioService,
     LibroService,
-    CarritoService
+    CarritoService,
+    FacturaService,
+    CheckoutService
   ],
   bootstrap: [AppComponent]
 })

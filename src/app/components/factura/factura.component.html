@@ -1,0 +1,344 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <img class="responsive-img" src="../../../assets/imagenes/cabeceraFacturacion.png">
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 5%;">
+    <form (ngSubmit)="onSubmit()" mehots="post">
+      <div class="col s4">
+        <div class="card horizontal">
+          <div class="card-image">
+          </div>
+          <div class="card-stacked">
+            <div class="card-content">
+              <button type="submit" class="btn">
+                Hago Su Pedido
+              </button>
+              <p style="font-size: smaller; margin-top: 2%">
+                (Al realizar su pedido, acepta la política de privacidad de alejandria y las condiciones de uso)</p>
+              <hr>
+              <h3>Resumen del pedido</h3>
+              <div class="row">
+                <div class="col s7 text-left">
+                  Total sin impuestos:
+                </div>
+                <div class="col s5 text-right">
+                  <span>{{carritoCompra.granTotal}} €</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s5 text-left">
+                  Impuestos:
+                </div>
+                <div class="col s5 text-right">
+                  <span>{{carritoCompra.granTotal * 0.21}} €</span>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col s8 text-left">
+                  <h6>
+                    <strong style="color: darkred;">
+                      <span>Total Con IVA: {{carritoCompra.granTotal * 0.21 + carritoCompra.granTotal}} €</span>
+                    </strong>
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <div class="card-action">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col s8">
+        <div *ngIf="camposRequeridos" class="card-panel red lighten-4 red-text text-darken-4">
+          Todos los campos con * son obligatorios.
+        </div>
+        <ul class="collapsible popout" data-collapsible="accordion">
+          <!-- Dirección de envío -->
+          <li>
+            <div class="collapsible-header">
+              <i class="material-icons">contact_mail</i>1. Dirección de envío</div>
+            <div class="collapsible-body">
+              <div class="card">
+                <div class="card-content">
+                  <span class="card-title">Dirección de envío</span>
+                  <table class="table" *ngIf="!emptyListaEnvio">
+                    <thead>
+                      <tr>
+                        <th>Dirección activa</th>
+                        <th>Operación</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let usuarioEnvio of usuarioEnvioLista">
+                        <td>
+                          {{usuarioEnvio.usuarioEnvioCalle}}, {{usuarioEnvio.usuarioEnvioCiudad}}, {{usuarioEnvio.usuarioEnvioProvincia}}
+                        </td>
+                        <td>
+                          <a class="pointer" (click)="setCalleEnvio(usuarioEnvio)">Usar esta calle</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input type="text" class="validate" id="envioCalleNombre" required="required" [(ngModel)]="envioCalle.envioCalleNombre" name="envioCalleNombre"
+                      />
+                      <label for="envioCalleNombre">Nombre *</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input type="text" id="envioCalle" class="validate" required="required" [(ngModel)]="envioCalle.envioCalle" name="envioCalle"
+                      />
+                      <label for="envioCalle">Calle *</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s4">
+                      <label for="envioCiudad">Ciudad *</label>
+                      <input type="text" class="validate" id="envioCiudad" required="required" [(ngModel)]="envioCalle.envioCalleCiudad" name="envioCiudad"
+                      />
+                    </div>
+                    <div class="input-field col s4">
+                      <select materialize="material_select" id="envioProvincia" name="envioProvincia" [(ngModel)]="envioCalle.envioCalleProvincia"
+                        required="required">
+                        <option value="" disabled>Provincia *</option>
+                        <option *ngFor="let provincia of provinciaLista">{{provincia}}</option>
+                      </select>
+                    </div>
+                    <div class="input-field col s4">
+                      <input type="text" class="validate" id="envioCalleCodigoPostal" required="required" [(ngModel)]="envioCalle.envioCalleCodigoPostal"
+                        name="envioCalleCodigoPostal" />
+                      <label for="envioCodigoPostal">CP *</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-action">
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- Información del Pago -->
+          <li>
+            <div class="collapsible-header">
+              <i class="material-icons">credit_card</i>2. Pago</div>
+            <div class="collapsible-body">
+              <div class="card">
+                <div class="card-content">
+                  <span class="card-title">Pago</span>
+                  <table class="table" *ngIf="!emptyEnvioLista">
+                    <thead>
+                      <tr>
+                        <th>Pago activo</th>
+                        <th>Operación</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let usuarioPago of usuarioPagoLista">
+                        <td>
+                          {{usuarioPago.nombreTarjeta}}
+                        </td>
+                        <td>
+                          <a class="pointer" (click)="setMetodoPago(usuarioPago)">Usar este pago</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- Informacion tarjeta de credito -->
+                  <div class="row">
+                    <div class="col s12">
+                      <img class="responsive-img" src="../../../assets/imagenes/creditcard.png">
+                      <div class="row">
+                        <div class="input-field col s4">
+                          <select materialize="material_select" id="tipoTarjeta" [(ngModel)]="usuarioPago.tipo" name="tipoTarjeta" required>
+                            <option value="" disabled selected>Tipo De Tarjeta*:</option>
+                            <option value="visa">Visa</option>
+                            <option value="mastercard">Mastercard</option>
+                            <option value="discover">Discover</option>
+                            <option value="amex">American Express</option>
+                          </select>
+                        </div>
+                        <div class="input-field col s4">
+                          <input id="nombreTitular" type="text" class="validate" [(ngModel)]="pago.nombreTitular" name="nombreTitular" required>
+                          <label for="nombreTitular">Nombre Del Titular *</label>
+                        </div>
+                        <div class="input-field col s4">
+                          <input id="numeroTarjeta" type="number" class="validate" [(ngModel)]="pago.numeroTarjeta" name="numeroTarjeta" required>
+                          <label for="numeroTarjeta">Número tarjeta*:</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s4">
+                          <select materialize="material_select" id="mesExpiracion" [(ngModel)]="pago.mesExpiracion" name="mesExpiracion" required>
+                            <option value="" disabled selected>Mes De Expiración*:</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                          </select>
+                        </div>
+                        <div class="input-field col s4">
+                          <select materialize="material_select" id="anioExpiracion" [(ngModel)]="pago.anioExpiracion" name="anioExpiracion" required>
+                            <option value="" disabled selected>Año De Expiración*:</option>
+                            <option value="18">2018</option>
+                            <option value="19">2019</option>
+                            <option value="20">2020</option>
+                            <option value="21">2021</option>
+                            <option value="22">2022</option>
+                            <option value="23">2023</option>
+                            <option value="24">2024</option>
+                            <option value="25">2025</option>
+                          </select>
+                        </div>
+                        <div class="input-field col s4">
+                          <input id="cvc" type="number" class="validate" [(ngModel)]="pago.cvc" name="cvc" required>
+                          <label for="cvc">CVC*:</label>
+                        </div>
+                      </div>
+                      <div class="checkbox">
+                        <p>
+                          <input id="laMismaDireccionDelEnvio" type="checkbox" name="laMismaDireccionDelEnvio" value="true" (click)="setFacturacionIgualEnvio($event.target.checked)"
+                          />
+                          <label for="laMismaDireccionDelEnvio">La Misma Dirección Del Envío</label>
+                        </p>
+                      </div>
+                      <!-- Informacion Facturación -->
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input id="usuarioFacturacionNombre" type="text" class="validate" [(ngModel)]="facturacionCalle.usuarioFacturacionNombre"
+                            name="usuarioFacturacionNombre" required>
+                          <label for="usuarioFacturacionNombre">Nombre*:</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <input id="usuarioFacturacionCalle" type="text" class="validate" [(ngModel)]="facturacionCalle.usuarioFacturacionCalle" name="usuarioFacturacionCalle"
+                            required>
+                          <label for="usuarioFacturacionCalle">Dirección Facturación*:</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="input-field col s4">
+                          <input id="usuarioFacturacionCiudad" type="text" class="validate" [(ngModel)]="facturacionCalle.usuarioFacturacionCiudad"
+                            name="usuarioFacturacionCiudad" required>
+                          <label for="usuarioFacturacionCiudad">Ciudad*:</label>
+                        </div>
+                        <div class="input-field col s4">
+                          <select materialize="material_select" id="usuarioFacturacionProvincia" [(ngModel)]="facturacionCalle.usuarioFacturacionProvincia"
+                            name="usuarioFacturacionProvincia" required>
+                            <option value="" disabled selected>Provincia*:</option>
+                            <option *ngFor="let provincia of listaProvincias">{{provincia}}</option>
+                          </select>
+                        </div>
+                        <div class="input-field col s4">
+                          <input id="usuarioFacturacionCodigoPostal" type="number" class="validate" [(ngModel)]="facturacionCalle.usuarioFacturacionCodigoPostal"
+                            name="usuarioFacturacionCodigoPostal" required>
+                          <label for="usuarioFacturacionCodigoPostal">CP*:</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-action">
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- Revisión de artículos y envío -->
+          <li>
+            <div class="collapsible-header active">
+              <i class="material-icons">local_shipping</i>3. Revisar artículos y envío</div>
+            <div class="collapsible-body">
+              <div class="card">
+                <div class="card-content">
+                  <h4>Elige tu método de envío: </h4>
+                  <div class="row">
+                    <p>
+                      <input class="with-gap" type="radio" id="metodoEnvioNormal" name="metodoEnvioNormal" value="metodoEnvioNormal" [(ngModel)]="metodoEnvio"
+                      />
+                      <label for="metodoEnvioNormal">Envio Normal</label>
+                    </p>
+                  </div>
+                  <div class="row">
+                    <p>
+                      <input class="with-gap" type="radio" id="metodoEnvioPremium" name="metodoEnvioPremium" value="metodoEnvioPremium" [(ngModel)]="metodoEnvio"
+                      />
+                      <label for="metodoEnvioPremium">Envio Premium</label>
+                    </p>
+                  </div>
+                  <div class="row">
+                    <div class="col s5">
+                      <h4>Productos</h4>
+                    </div>
+                    <div class="col s3">
+                      <h4>Precio</h4>
+                    </div>
+                    <div class="col s2">
+                      <h4>Cantidad</h4>
+                    </div>
+                  </div>
+                  <!-- productos -->
+                  <div class="row" *ngFor="let carritoItem of carritoItemLista">
+                    <hr />
+                    <div class="col s2">
+                      <a md-button (click)="onSelect(carritoItem.libro)">
+                        <img class="responsive-img" style="width: 50%; height: 30%;" [src]="'http://localhost:8181/image/libro/'+carritoItem.libro.id+'.png'"
+                        />
+                      </a>
+                    </div>
+                    <div class="col s6">
+                      <a class="pointer" (click)="onSelect(carritoItem.libro)">
+                        <h6>{{carritoItem.libro.titulo}}</h6>
+                      </a>
+                      <p *ngIf="carritoItem.libro.numeroDeStock > 10" style="color:green;">En Stock</p>
+                      <p *ngIf="carritoItem.libro.numeroDeStock < 10 && carritoItem.libro.numeroDeStock > 0" style="color:green;">Solo quedan
+                        <span>{{carritoItem.libro.numeroDeStock}}</span> En Stock</p>
+                      <p *ngIf="carritoItem.libro.numeroDeStock == 0" style="color:darkred;">Sin Stock</p>
+                      <a class="btn-floating" (click)="onBorrarcarritoItem(carritoItem)">Borrar</a>
+                    </div>
+                    <div class="col s2">
+                      <h5 style="color:#db3208; font-size:large;">
+                        <span [ngClass]="{'text-strike': carritoItem.libro.numeroDeStock == 0}">{{carritoItem.libro.nuestroPrecio}} €</span>
+                      </h5>
+                    </div>
+                    <div class="col s2 text-center">
+                      <h5 style="font-size: large">{{carritoItem.cantidad}}</h5>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <hr />
+                    <h4 class="col s12 text-right">
+                      <strong style="font-size: large">Precio Total (
+                        <span>{{carritoItemNumero}}</span> artículos): </strong>
+                      <span style="color:#db3208;font-size: large">
+                        <span>{{carritoCompra.granTotal}} €</span>
+                      </span>
+                    </h4>
+                    <br/>
+                    <br/>
+                    <button type="submit" class="btn blue waves-effect waves-purple">Realizar tu Pedido</button>
+                    <p style="margin-top: 2%">(Al realizar su pedido, acepta la política de privacidad de alejandria y las condiciones de uso)</p>
+                  </div>
+                </div>
+                <div class="card-action">
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { ListaLibrosComponent } from './components/lista-libros/lista-libros.component';
 import { DetalleLibroComponent } from './components/detalle-libro/detalle-libro.component';
 import { CarritoCompraComponent } from './components/carrito-compra/carrito-compra.component';
+import { FacturaComponent } from './components/factura/factura.component';
 
 const appRoutes: Routes = [
     {
@@ -37,6 +38,10 @@ const appRoutes: Routes = [
     {
         path: 'carritoCompra',
         component: CarritoCompraComponent
+    },
+    {
+        path: 'pedido',
+        component: FacturaComponent
     }
 
 ];

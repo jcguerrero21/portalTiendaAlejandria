@@ -1,6 +1,6 @@
-import { UsuarioFacturacion } from './usuario-facturacion';
+import { FacturacionCalle } from "app/models/facturacion-calle";
 
-export class UsuarioPago {
+export class Pago {
     public id: number;
     public tipo: string;
     public nombreTarjeta: string;
@@ -10,5 +10,5 @@ export class UsuarioPago {
     public cvc: number;
     public nombreTitular: string;
     public pagoPredeterminado: boolean;
-    public usuarioFacturacion: UsuarioFacturacion;
+    public facturacionCalle: FacturacionCalle;
 }
