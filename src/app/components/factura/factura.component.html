@@ -59,7 +59,7 @@
         <ul class="collapsible popout" data-collapsible="accordion">
           <!-- Dirección de envío -->
           <li>
-            <div class="collapsible-header">
+            <div class="collapsible-header active">
               <i class="material-icons">contact_mail</i>1. Dirección de envío</div>
             <div class="collapsible-body">
               <div class="card">
@@ -78,21 +78,21 @@
                           {{usuarioEnvio.usuarioEnvioCalle}}, {{usuarioEnvio.usuarioEnvioCiudad}}, {{usuarioEnvio.usuarioEnvioProvincia}}
                         </td>
                         <td>
-                          <a class="pointer" (click)="setCalleEnvio(usuarioEnvio)">Usar esta calle</a>
+                          <a class="btn" (click)="setCalleEnvio(usuarioEnvio)">Usar esta calle</a>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                   <div class="row">
                     <div class="input-field col s12">
-                      <input type="text" class="validate" id="envioCalleNombre" required="required" [(ngModel)]="envioCalle.envioCalleNombre" name="envioCalleNombre"
+                      <input type="text" class="validate" id="envioCalleNombre" placeholder="" required="required" [(ngModel)]="envioCalle.envioCalleNombre" name="envioCalleNombre"
                       />
                       <label for="envioCalleNombre">Nombre *</label>
                     </div>
                   </div>
                   <div class="row">
                     <div class="input-field col s12">
-                      <input type="text" id="envioCalle" class="validate" required="required" [(ngModel)]="envioCalle.envioCalle" name="envioCalle"
+                      <input type="text" id="envioCalle" class="validate" placeholder="" required="required" [(ngModel)]="envioCalle.envioCalleCalle" name="envioCalle"
                       />
                       <label for="envioCalle">Calle *</label>
                     </div>
@@ -100,18 +100,18 @@
                   <div class="row">
                     <div class="input-field col s4">
                       <label for="envioCiudad">Ciudad *</label>
-                      <input type="text" class="validate" id="envioCiudad" required="required" [(ngModel)]="envioCalle.envioCalleCiudad" name="envioCiudad"
+                      <input type="text" class="validate" id="envioCiudad" placeholder="" required="required" [(ngModel)]="envioCalle.envioCalleCiudad" name="envioCiudad"
                       />
                     </div>
                     <div class="input-field col s4">
-                      <select materialize="material_select" id="envioProvincia" name="envioProvincia" [(ngModel)]="envioCalle.envioCalleProvincia"
+                      <select materialize="material_select" id="envioProvincia" placeholder="" name="envioProvincia" [(ngModel)]="envioCalle.envioCalleProvincia"
                         required="required">
                         <option value="" disabled>Provincia *</option>
                         <option *ngFor="let provincia of provinciaLista">{{provincia}}</option>
                       </select>
                     </div>
                     <div class="input-field col s4">
-                      <input type="text" class="validate" id="envioCalleCodigoPostal" required="required" [(ngModel)]="envioCalle.envioCalleCodigoPostal"
+                      <input type="text" class="validate" id="envioCalleCodigoPostal" placeholder="" required="required" [(ngModel)]="envioCalle.envioCalleCodigoPostal"
                         name="envioCalleCodigoPostal" />
                       <label for="envioCodigoPostal">CP *</label>
                     </div>
@@ -133,7 +133,7 @@
                   <table class="table" *ngIf="!emptyEnvioLista">
                     <thead>
                       <tr>
-                        <th>Pago activo</th>
+                        <th>Tarjeta</th>
                         <th>Operación</th>
                       </tr>
                     </thead>
@@ -143,7 +143,7 @@
                           {{usuarioPago.nombreTarjeta}}
                         </td>
                         <td>
-                          <a class="pointer" (click)="setMetodoPago(usuarioPago)">Usar este pago</a>
+                          <a class="btn" (click)="setMetodoPago(usuarioPago)">Usar este método</a>
                         </td>
                       </tr>
                     </tbody>
@@ -154,7 +154,7 @@
                       <img class="responsive-img" src="../../../assets/imagenes/creditcard.png">
                       <div class="row">
                         <div class="input-field col s4">
-                          <select materialize="material_select" id="tipoTarjeta" [(ngModel)]="usuarioPago.tipo" name="tipoTarjeta" required>
+                          <select materialize="material_select" id="tipoTarjeta" name="tipoTarjeta" [(ngModel)]="pago.tipo" class="validate" required>
                             <option value="" disabled selected>Tipo De Tarjeta*:</option>
                             <option value="visa">Visa</option>
                             <option value="mastercard">Mastercard</option>
@@ -163,11 +163,11 @@
                           </select>
                         </div>
                         <div class="input-field col s4">
-                          <input id="nombreTitular" type="text" class="validate" [(ngModel)]="pago.nombreTitular" name="nombreTitular" required>
+                          <input id="nombreTitular" type="text" class="validate" placeholder="" [(ngModel)]="pago.nombreTitular" name="nombreTitular" required>
                           <label for="nombreTitular">Nombre Del Titular *</label>
                         </div>
                         <div class="input-field col s4">
-                          <input id="numeroTarjeta" type="number" class="validate" [(ngModel)]="pago.numeroTarjeta" name="numeroTarjeta" required>
+                          <input id="numeroTarjeta" type="number" class="validate" placeholder="" [(ngModel)]="pago.numeroTarjeta" name="numeroTarjeta" required>
                           <label for="numeroTarjeta">Número tarjeta*:</label>
                         </div>
                       </div>
@@ -203,7 +203,7 @@
                           </select>
                         </div>
                         <div class="input-field col s4">
-                          <input id="cvc" type="number" class="validate" [(ngModel)]="pago.cvc" name="cvc" required>
+                          <input id="cvc" type="number" class="validate" placeholder="" [(ngModel)]="pago.cvc" name="cvc" required>
                           <label for="cvc">CVC*:</label>
                         </div>
                       </div>
@@ -217,33 +217,33 @@
                       <!-- Informacion Facturación -->
                       <div class="row">
                         <div class="input-field col s12">
-                          <input id="usuarioFacturacionNombre" type="text" class="validate" [(ngModel)]="facturacionCalle.usuarioFacturacionNombre"
+                          <input id="usuarioFacturacionNombre" type="text" class="validate" placeholder="" [(ngModel)]="facturacionCalle.facturacionCalleNombre"
                             name="usuarioFacturacionNombre" required>
                           <label for="usuarioFacturacionNombre">Nombre*:</label>
                         </div>
                       </div>
                       <div class="row">
                         <div class="input-field col s12">
-                          <input id="usuarioFacturacionCalle" type="text" class="validate" [(ngModel)]="facturacionCalle.usuarioFacturacionCalle" name="usuarioFacturacionCalle"
+                          <input id="usuarioFacturacionCalle" type="text" class="validate" placeholder="" [(ngModel)]="facturacionCalle.facturacionCalleCalle" name="usuarioFacturacionCalle"
                             required>
                           <label for="usuarioFacturacionCalle">Dirección Facturación*:</label>
                         </div>
                       </div>
                       <div class="row">
                         <div class="input-field col s4">
-                          <input id="usuarioFacturacionCiudad" type="text" class="validate" [(ngModel)]="facturacionCalle.usuarioFacturacionCiudad"
+                          <input id="usuarioFacturacionCiudad" type="text" class="validate" placeholder="" [(ngModel)]="facturacionCalle.facturacionCalleCiudad"
                             name="usuarioFacturacionCiudad" required>
                           <label for="usuarioFacturacionCiudad">Ciudad*:</label>
                         </div>
                         <div class="input-field col s4">
-                          <select materialize="material_select" id="usuarioFacturacionProvincia" [(ngModel)]="facturacionCalle.usuarioFacturacionProvincia"
+                          <select materialize="material_select" id="usuarioFacturacionProvincia" placeholder="" [(ngModel)]="facturacionCalle.facturacionCalleProvincia"
                             name="usuarioFacturacionProvincia" required>
                             <option value="" disabled selected>Provincia*:</option>
-                            <option *ngFor="let provincia of listaProvincias">{{provincia}}</option>
+                            <option *ngFor="let provincia of provinciaLista">{{provincia}}</option>
                           </select>
                         </div>
                         <div class="input-field col s4">
-                          <input id="usuarioFacturacionCodigoPostal" type="number" class="validate" [(ngModel)]="facturacionCalle.usuarioFacturacionCodigoPostal"
+                          <input id="usuarioFacturacionCodigoPostal" type="number" class="validate" placeholder="" [(ngModel)]="facturacionCalle.facturacionCalleCodigoPostal"
                             name="usuarioFacturacionCodigoPostal" required>
                           <label for="usuarioFacturacionCodigoPostal">CP*:</label>
                         </div>
@@ -258,7 +258,7 @@
           </li>
           <!-- Revisión de artículos y envío -->
           <li>
-            <div class="collapsible-header active">
+            <div class="collapsible-header">
               <i class="material-icons">local_shipping</i>3. Revisar artículos y envío</div>
             <div class="collapsible-body">
               <div class="card">

@@ -25,6 +25,7 @@ import { ListaLibrosComponent } from './components/lista-libros/lista-libros.com
 import { DetalleLibroComponent } from './components/detalle-libro/detalle-libro.component';
 import { CarritoCompraComponent } from './components/carrito-compra/carrito-compra.component';
 import { FacturaComponent } from './components/factura/factura.component';
+import { ResumenFacturaComponent } from './components/resumen-factura/resumen-factura.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FacturaComponent } from './components/factura/factura.component';
     ListaLibrosComponent,
     DetalleLibroComponent,
     CarritoCompraComponent,
-    FacturaComponent
+    FacturaComponent,
+    ResumenFacturaComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <img class="responsive-img" src="../../../assets/imagenes/cabeceraResumen.png">
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 5%;">
+    <div class="card-panel green lighten-4 green-text text-darken-4">
+      <h5>
+        <i class="material-icons right">playlist_add_check</i>¡Muchas Gracias! Tu pedido ha sido recibido</h5>
+      <h6>Lo recibirás el día
+        <span>{{fechaEstimadaEntrega}}</span>
+      </h6>
+    </div>
+    <h3>Lista De Artículos</h3>
+    <div class="row" *ngFor="let carritoItem of carritoItemLista">
+      <div class="col s2">
+        <a (click)="onSelect(carritoItem.libro)">
+          <img class="responsive-img" style="width: 50%; height: 30%;" [src]="'http://localhost:8181/image/libro/'+carritoItem.libro.id+'.png'">
+        </a>
+      </div>
+      <div class="col s4">
+        <a class="waves-effect btn-flat tex-left" (click)="onSelect(carritoItem.libro)">
+          <h6>{{carritoItem.libro.titulo}}</h6>
+        </a>
+      </div>
+      <div class="col s2">
+        <h5 style="color:#db3208;font-size:large;">
+          <span [ngClass]="{'text-strike': carritoItem.libro.numeroDeStock == 0}">{{carritoItem.libro.nuestroPrecio}} €</span>
+        </h5>
+      </div>
+      <div class="col s2 text-center">
+        <h5 style="font-size: large">{{carritoItem.cantidad}}</h5>
+      </div>
+    </div>
+  </div>
+</div>

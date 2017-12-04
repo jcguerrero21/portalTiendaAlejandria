@@ -1,4 +1,5 @@
 import { CarritoItem } from './carrito-item';
+import { Pago } from './pago';
 
 export class Factura {
     public id: number;
@@ -8,4 +9,5 @@ export class Factura {
     public estadoFactura: string;
     public facturaTotal: number;
     public carritoItemList: CarritoItem[];
+    public pago: Pago;
 }

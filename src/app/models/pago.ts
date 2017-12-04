@@ -1,4 +1,4 @@
-import { FacturacionCalle } from "app/models/facturacion-calle";
+import { FacturacionCalle } from "./facturacion-calle";
 
 export class Pago {
     public id: number;

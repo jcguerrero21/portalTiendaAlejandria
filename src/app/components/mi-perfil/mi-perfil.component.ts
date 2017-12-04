@@ -10,6 +10,9 @@ import { UsuarioPago } from '../../models/usuario-pago';
 import { UsuarioFacturacion } from '../../models/usuario-facturacion';
 import { UsuarioEnvio } from '../../models/usuario-envio';
 import { slide } from '../../animations/animations';
+import { Factura } from '../../models/factura';
+import { FacturaService } from '../../services/factura.service';
+import { CarritoItem } from '../../models/carrito-item';
 
 declare var $: any;
 
@@ -56,11 +59,18 @@ export class MiPerfilComponent implements OnInit {
   private usuarioEnvioInfo: boolean;
   private borrarEnvioInfo: boolean;
 
+  private facturaLista: Factura[] = [];
+  private factura:Factura = new Factura();
+  private mostrarDetalleFactura: boolean;
+
+  private carritoItemLista: CarritoItem[] = [];
+
   constructor(
     private loginService: LoginService,
     private usuarioService: UsuarioService,
     private pagoService: PagoService,
     private envioService: EnvioService,
+    private facturaService: FacturaService,
     private router: Router
   ) { }
 
@@ -200,6 +210,13 @@ export class MiPerfilComponent implements OnInit {
     );
   }
 
+  onMostrarDetalleFactura(factura: Factura) {
+    console.log(factura);
+    this.factura = factura;
+    this.mostrarDetalleFactura = true;
+    this.carritoItemLista = this.factura.carritoItemList;
+  }
+
   ngOnInit() {
     $('ul.tabs').tabs();
     $('ul.tabs').tabs('select_tab', 'tab_id');
@@ -214,9 +231,18 @@ export class MiPerfilComponent implements OnInit {
         console.log("sesión inactiva");
         this.router.navigate(['/miCuenta'])
       }
-    )
+    );
 
     this.getUsuarioActual();
+
+    this.facturaService.getFacturaLista().subscribe(
+      res => {
+        this.facturaLista = res.json();
+      },
+      error => {
+        console.log(error.text());
+      }
+    );
 
     for (let provincias in AppConst.provincias) {
       this.listaProvincias.push(provincias);

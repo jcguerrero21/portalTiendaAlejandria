@@ -107,7 +107,7 @@ export class FacturaComponent implements OnInit {
       this.facturacionCalle.facturacionCalleProvincia = this.envioCalle.envioCalleProvincia;
       this.facturacionCalle.facturacionCallePais = this.envioCalle.envioCallePais;
       this.facturacionCalle.facturacionCalleCodigoPostal = this.envioCalle.envioCalleCodigoPostal;
-    }else {
+    } else {
       this.facturacionCalle.facturacionCalleNombre = "";
       this.facturacionCalle.facturacionCalleCalle = "";
       this.facturacionCalle.facturacionCalleCiudad = "";
@@ -120,9 +120,9 @@ export class FacturaComponent implements OnInit {
   onSubmit() {
     this.checkoutService.checkOut(
       this.envioCalle,
-        this.facturacionCalle,
-        this.pago,
-        this.metodoEnvio
+      this.facturacionCalle,
+      this.pago,
+      this.metodoEnvio
     ).subscribe(
       res => {
         this.factura = res.json();
@@ -138,7 +138,7 @@ export class FacturaComponent implements OnInit {
       error => {
         console.log(error.text());
       }
-    );
+      );
   }
 
   ngOnInit() {
@@ -202,10 +202,10 @@ export class FacturaComponent implements OnInit {
     this.pago.tipo = "";
     this.pago.mesExpiracion = "";
     this.pago.anioExpiracion = "";
-    this.facturacionCalle.facturacionCalleProvincia="";
-    this.envioCalle.envioCalleProvincia="";
-    this.metodoEnvio="metodoEnvioNormal";
+    this.facturacionCalle.facturacionCalleProvincia = "";
+    this.envioCalle.envioCalleProvincia = "";
+    this.metodoEnvio = "metodoEnvioNormal";
   }
 
- 
+
 }

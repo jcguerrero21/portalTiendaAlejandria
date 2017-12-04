@@ -27,14 +27,17 @@
   <div class="row" style="margin-top:5%;">
     <div class="col s12">
       <ul id="tabs-swipe-demo" class="tabs">
-        <li class="tab col s4">
+        <li class="tab col s3">
           <a href="#editar">Editar</a>
         </li>
-        <li class="tab col s4">
+        <li class="tab col s3">
           <a href="#pago">Pago</a>
         </li>
-        <li class="tab col s4">
-          <a href="#compra">Compra</a>
+        <li class="tab col s3">
+          <a href="#pedido">Pedido</a>
+        </li>
+        <li class="tab col s3">
+          <a href="#envio">Envio</a>
         </li>
       </ul>
       <div id="editar" class="col s12 grey lighten-3">
@@ -95,6 +98,159 @@
             </div>
           </div>
         </form>
+      </div>
+      <div id="pedido" class="col s12">
+        <table class="bordered striped responsive-table" style="margin-top:3%;">
+          <thead>
+            <tr>
+              <th>Número Pedido</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let factura of facturaLista">
+              <td>
+                <a class="btn btn-floating cyan pulse " (click)="onMostrarDetalleFactura(factura)">
+                  {{factura.id}}
+                </a>
+              </td>
+              <td>{{factura.facturaTotal}} €</td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="mostrarDetalleFactura">
+          <div class="row">
+            <div class="col s12">
+              <div class="text-center">
+                <h2>Detalle del pedido #
+                  <span>{{factura.id}}</span>
+                </h2>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col s4">
+                  <div class="card-panel">
+                    <span class="card-title">
+                      <strong>Detalles Facturacion</strong>
+                    </span>
+                    <br>
+                    <span>{{factura.facturacionCalle.facturacionCalleNombre}}</span>
+                    <br>
+                    <span>{{factura.facturacionCalle.facturacionCalleCalle}}</span>
+                    <br>
+                    <span>{{factura.facturacionCalle.facturacionCalleCiudad}}</span>
+                    <br>
+                    <span>{{factura.facturacionCalle.facturacionCalleProvincia}}</span>
+                    <br>
+                    <span>{{factura.facturacionCalle.facturacionCalleCodigoPostal}}</span>
+                  </div>
+                </div>
+                <div class="col s4">
+                  <div class="card-panel">
+                    <span class="card-title">
+                      <strong>Información Del Pago</strong>
+                    </span>
+                    <br>
+                    <span>{{factura.pago.nombreTitular}}</span>
+                    <br>
+                    <span>{{factura.pago.numeroTarjeta}}</span>
+                    <br>
+                    <span>Fecha Expiración:</span>
+                    <span>{{factura.pago.mesExpiracion}}</span>/
+                    <span>{{factura.pago.anioExpiracion}}</span>
+                  </div>
+                </div>
+                <div class="col s4">
+                  <div class="card-panel">
+                    <span class="card-title">
+                      <strong>Dirección De Envio</strong>
+                    </span>
+                    <br>
+                    <span>{{factura.envioCalle.envioCalleCalle}}</span>
+                    <br>
+                    <span>{{factura.envioCalle.envioCalleCiudad}}</span>
+                    <br>
+                    <span>{{factura.envioCalle.envioCalleProvincia}}</span>
+                    <br>
+                    <span>{{factura.envioCalle.envioCalleCodigoPostal}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  <div class="card">
+                    <div class="card-content">
+                      <span class="card-title">
+                        <strong>Resumen Del Pedido</strong>
+                        <table class="table-responsive">
+                          <thead>
+                            <tr>
+                              <td>
+                                <strong>Artículo</strong>
+                              </td>
+                              <td class="text-center">
+                                <strong>Precio</strong>
+                              </td>
+                              <td class="text-center">
+                                <strong>Cantidad</strong>
+                              </td>
+                              <td class="text-right">
+                                <strong>Total</strong>
+                              </td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let carritoItem of carritoItemLista">
+                              <td>{{carritoItem.libro.titulo}}
+                              </td>
+                              <td class="text-center">{{carritoItem.libro.nuestroPrecio}}
+                              </td>
+                              <td class="text-center">
+                                {{carritoItem.cantidad}}
+                              </td>
+                              <td class="text-right">{{carritoItem.subtotal}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="highrow"></td>
+                              <td class="highrow"></td>
+                              <td class="highrow text-center">
+                                <strong>Subtotal</strong>
+                              </td>
+                              <td class="highrow text-right">{{factura.facturaTotal-factura.facturaTotal*0.21}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="emptyrow"></td>
+                              <td class="emptyrow"></td>
+                              <td class="emptyrow text-center">
+                                <strong>Impuestos</strong>
+                              </td>
+                              <td class="emptyrow text-right">{{factura.facturaTotal*0.21}}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="emptyrow">
+                              </td>
+                              <td class="emptyrow"></td>
+                              <td class="emptyrow text-center">
+                                <strong>Total</strong>
+                              </td>
+                              <td class="emptyrow text-right">{{factura.facturaTotal}} €
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </span>
+                    </div>
+                    <div class="card-action">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="pago" class="col s12">
         <div class="col s2"></div>
@@ -273,7 +429,7 @@
           </div>
         </div>
       </div>
-      <div id="compra" class="col s12 grey lighten-3">
+      <div id="envio" class="col s12 grey lighten-3">
         <div class="col s2"></div>
         <div class="col s8" style="margin-top: 2%; margin-bottom: 2%">
           <ul id="tabs-swipe-demo2" class="tabs">

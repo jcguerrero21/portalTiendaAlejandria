@@ -28,14 +28,15 @@ export class LibroService {
     return this.http.get(url, { headers: tokenHeader });
   }
 
-  buscarLibro(palabraClave: string) {
-    let url = this.servidorPath + "/libro/buscarLibro";
+  // Este método no lo uso porque no he podido conseguir filtrar los libros para buscarlos desde el navbar
+  // buscarLibro(palabraClave: string) {
+  //   let url = this.servidorPath + "/libro/buscarLibro";
 
-    let tokenHeader = new Headers({
-      'Content-Type': 'application/json',
-      'x-auth-token': localStorage.getItem("xAuthToken")
-    });
-    return this.http.post(url, palabraClave, { headers: tokenHeader });
-  }
+  //   let tokenHeader = new Headers({
+  //     'Content-Type': 'application/json',
+  //     'x-auth-token': localStorage.getItem("xAuthToken")
+  //   });
+  //   return this.http.post(url, palabraClave, { headers: tokenHeader });
+  // }
 
 }

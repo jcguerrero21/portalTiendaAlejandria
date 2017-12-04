@@ -8,6 +8,7 @@ import { ListaLibrosComponent } from './components/lista-libros/lista-libros.com
 import { DetalleLibroComponent } from './components/detalle-libro/detalle-libro.component';
 import { CarritoCompraComponent } from './components/carrito-compra/carrito-compra.component';
 import { FacturaComponent } from './components/factura/factura.component';
+import { ResumenFacturaComponent } from './components/resumen-factura/resumen-factura.component';
 
 const appRoutes: Routes = [
     {
@@ -42,6 +43,10 @@ const appRoutes: Routes = [
     {
         path: 'pedido',
         component: FacturaComponent
+    },
+    {
+        path: 'resumenFactura',
+        component: ResumenFacturaComponent
     }
 
 ];
