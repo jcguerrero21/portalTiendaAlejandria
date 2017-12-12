@@ -92,8 +92,6 @@ export class CarritoCompraComponent implements OnInit {
           return;
         }
       }
-
-      // this.router.navigate('[/order]');
     }
   }
 

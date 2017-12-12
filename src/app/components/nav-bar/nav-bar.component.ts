@@ -36,7 +36,7 @@ export class NavBarComponent implements OnInit {
       erro => {
         this.loggedIn = false;
       }
-    )
+    );
   }
 
 }

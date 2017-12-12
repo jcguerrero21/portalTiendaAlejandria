@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { AppConst } from '../../constants/app.const';
 import { Router, NavigationExtras } from '@angular/router';
 import { Libro } from '../../models/libro';
@@ -15,15 +15,22 @@ import { UsuarioFacturacion } from '../../models/usuario-facturacion';
 import { UsuarioEnvio } from '../../models/usuario-envio';
 import { Pago } from '../../models/pago';
 import { Factura } from '../../models/factura';
+import { slide } from '../../animations/animations';
 
 declare var $: any;
 
 @Component({
   selector: 'app-factura',
   templateUrl: './factura.component.html',
-  styleUrls: ['./factura.component.css']
+  styleUrls: ['./factura.component.css'],
+  animations: [slide]
 })
 export class FacturaComponent implements OnInit {
+
+  @HostBinding('@routeAnimation') routeAnimation = true;
+  @HostBinding('style.display') display = 'block';
+  @HostBinding('style.position') position = 'relative';
+
   private servidorPath = AppConst.servidorPath;
   private libroSeleccionado: Libro;
   private carritoItemLista: CarritoItem[] = [];

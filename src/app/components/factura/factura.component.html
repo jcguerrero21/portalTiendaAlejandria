@@ -13,9 +13,6 @@
           </div>
           <div class="card-stacked">
             <div class="card-content">
-              <button type="submit" class="btn">
-                Hago Su Pedido
-              </button>
               <p style="font-size: smaller; margin-top: 2%">
                 (Al realizar su pedido, acepta la política de privacidad de alejandria y las condiciones de uso)</p>
               <hr>
@@ -25,7 +22,7 @@
                   Total sin impuestos:
                 </div>
                 <div class="col s5 text-right">
-                  <span>{{carritoCompra.granTotal}} €</span>
+                  <span>{{carritoCompra.granTotal - carritoCompra.granTotal * 0.21}} €</span>
                 </div>
               </div>
               <div class="row">
@@ -41,7 +38,7 @@
                 <div class="col s8 text-left">
                   <h6>
                     <strong style="color: darkred;">
-                      <span>Total Con IVA: {{carritoCompra.granTotal * 0.21 + carritoCompra.granTotal}} €</span>
+                      <span>Total Con IVA: {{carritoCompra.granTotal}} €</span>
                     </strong>
                   </h6>
                 </div>
@@ -266,14 +263,14 @@
                   <h4>Elige tu método de envío: </h4>
                   <div class="row">
                     <p>
-                      <input class="with-gap" type="radio" id="metodoEnvioNormal" name="metodoEnvioNormal" value="metodoEnvioNormal" [(ngModel)]="metodoEnvio"
+                      <input class="with-gap" type="radio" id="metodoEnvioNormal" name="metodoEnvioNormal" value="Envio Normal" [(ngModel)]="metodoEnvio"
                       />
                       <label for="metodoEnvioNormal">Envio Normal</label>
                     </p>
                   </div>
                   <div class="row">
                     <p>
-                      <input class="with-gap" type="radio" id="metodoEnvioPremium" name="metodoEnvioPremium" value="metodoEnvioPremium" [(ngModel)]="metodoEnvio"
+                      <input class="with-gap" type="radio" id="metodoEnvioPremium" name="metodoEnvioPremium" value="Envio Premium" [(ngModel)]="metodoEnvio"
                       />
                       <label for="metodoEnvioPremium">Envio Premium</label>
                     </p>

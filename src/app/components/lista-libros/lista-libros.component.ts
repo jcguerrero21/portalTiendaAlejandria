@@ -5,6 +5,7 @@ import { Params, ActivatedRoute, Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { AppConst } from '../../constants/app.const';
 import { slide } from '../../animations/animations';
+import { LoginService } from '../../services/login.service';
 
 declare var $: any;
 
@@ -31,12 +32,21 @@ export class ListaLibrosComponent implements OnInit {
     private libroService: LibroService,
     private router: Router,
     private http: Http,
+    private loginService: LoginService,
     private route: ActivatedRoute
   ) { }
 
   onSelect(libro: Libro) {
-    this.seleccionarLibro = libro;
-    this.router.navigate(['/libroDetalle', this.seleccionarLibro.id]);
+    this.loginService.verificarSesion().subscribe(
+      res => {
+        this.seleccionarLibro = libro;
+        this.router.navigate(['/libroDetalle', this.seleccionarLibro.id]);
+      },
+      error => {
+        console.log("Debes estar logeado para poder comprar");
+        this.router.navigate(['/miCuenta']);
+      }
+    );
   }
 
   ngOnInit() {
