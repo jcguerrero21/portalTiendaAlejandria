@@ -35,32 +35,29 @@ export class MiPerfilComponent implements OnInit {
   private credenciales = { 'username': '', 'password': '' };
 
   private usuario: Usuario = new Usuario();
-  private actualizadoExito: boolean;
+  private actualizadoExito: boolean = false;
   private nuevaPassword: string;
-  private incorrectPassword: boolean;
+  private incorrectPassword: boolean = false;
   private passwordActual: string;
-
-  private tabPerfilSeleccionada: number = 0;
-  private tabFacturacionSeleccionada: number = 0;
-  private tabUsuarioEnvioSeleccionada: number = 0;
 
   private usuarioPago: UsuarioPago = new UsuarioPago();
   private usuarioFacturacion: UsuarioFacturacion = new UsuarioFacturacion();
   private usuarioPagoLista: UsuarioPago[] = [];
-  private pagoPredeterminado: boolean;
-  private usuarioPagoInfo: boolean;
+  private pagoPredeterminado: boolean = false;
+  private borrarTarjetaOk: boolean = false;
+  private usuarioPagoInfo: boolean = false;
   private usuarioPagoPredeterminadoId: number;
   private listaProvincias: string[] = [];
 
   private usuarioEnvio: UsuarioEnvio = new UsuarioEnvio();
   private usuarioEnvioList: UsuarioEnvio[] = [];
   private usuarioPredeterminadoEnvioId: number;
-  private envioPredeterminado: boolean;
-  private usuarioEnvioInfo: boolean;
-  private borrarEnvioInfo: boolean;
+  private envioPredeterminado: boolean = false;
+  private usuarioEnvioInfo: boolean = false;
+  private borrarEnvioInfo: boolean = false;
 
   private facturaLista: Factura[] = [];
-  private factura:Factura = new Factura();
+  private factura: Factura = new Factura();
   private mostrarDetalleFactura: boolean;
 
   private carritoItemLista: CarritoItem[] = [];
@@ -79,6 +76,13 @@ export class MiPerfilComponent implements OnInit {
       res => {
         console.log(res.text());
         this.actualizadoExito = true;
+        this.incorrectPassword = false;
+        this.borrarEnvioInfo = true;
+        this.envioPredeterminado = false;
+        this.borrarTarjetaOk = false;
+        this.pagoPredeterminado = false;
+        this.usuarioEnvioInfo = false;
+        this.usuarioPagoInfo = false;
       },
       error => {
         console.log(error.text());
@@ -88,15 +92,18 @@ export class MiPerfilComponent implements OnInit {
     );
   }
 
-  // ngAfterViewChecked() {
-  //   Materialize.updateTextFields();
-  // }
-
   onNuevoPago() {
     this.pagoService.nuevoPago(this.usuarioPago).subscribe(
       res => {
         this.getUsuarioActual();
         this.usuarioPagoInfo = true;
+        this.borrarEnvioInfo = true;
+        this.envioPredeterminado = false;
+        this.borrarTarjetaOk = false;
+        this.actualizadoExito = false;
+        this.pagoPredeterminado = false;
+        this.usuarioEnvioInfo = false;
+        this.incorrectPassword = false;
         this.usuarioPago = new UsuarioPago();
         this.usuarioFacturacion = new UsuarioFacturacion();
       },
@@ -106,15 +113,17 @@ export class MiPerfilComponent implements OnInit {
     );
   }
 
-  onActualizarPago(pago: UsuarioPago) {
-    this.usuarioPago = pago;
-    this.usuarioFacturacion = pago.usuarioFacturacion;
-    this.tabFacturacionSeleccionada = 1;
-  }
-
   onBorrarPago(id: number) {
     this.pagoService.borrarPago(id).subscribe(
       res => {
+        this.pagoPredeterminado = false;
+        this.borrarTarjetaOk = true;
+        this.borrarEnvioInfo = true;
+        this.envioPredeterminado = false;
+        this.actualizadoExito = false;
+        this.usuarioEnvioInfo = false;
+        this.usuarioPagoInfo = false;
+        this.incorrectPassword = false;
         this.getUsuarioActual();
       },
       error => {
@@ -129,6 +138,13 @@ export class MiPerfilComponent implements OnInit {
       res => {
         this.getUsuarioActual();
         this.pagoPredeterminado = true;
+        this.borrarEnvioInfo = true;
+        this.envioPredeterminado = false;
+        this.borrarTarjetaOk = false;
+        this.actualizadoExito = false;
+        this.usuarioEnvioInfo = false;
+        this.usuarioPagoInfo = false;
+        this.incorrectPassword = false;
       },
       error => {
         console.log(error.text());
@@ -141,6 +157,13 @@ export class MiPerfilComponent implements OnInit {
       res => {
         this.getUsuarioActual();
         this.usuarioEnvioInfo = true;
+        this.borrarEnvioInfo = false;
+        this.envioPredeterminado = false;
+        this.borrarTarjetaOk = false;
+        this.actualizadoExito = false;
+        this.pagoPredeterminado = false;
+        this.usuarioPagoInfo = false;
+        this.incorrectPassword = false;
         this.usuarioEnvio = new UsuarioEnvio();
       },
       error => {
@@ -149,16 +172,18 @@ export class MiPerfilComponent implements OnInit {
     );
   }
 
-  onActualizarEnvio(envio: UsuarioEnvio) {
-    this.usuarioEnvio = envio;
-    this.tabUsuarioEnvioSeleccionada = 1;
-  }
-
   onBorrarEnvio(id: number) {
     this.envioService.borrarEnvio(id).subscribe(
       res => {
-        this.getUsuarioActual();
         this.borrarEnvioInfo = true;
+        this.envioPredeterminado = false;
+        this.borrarTarjetaOk = false;
+        this.actualizadoExito = false;
+        this.pagoPredeterminado = false;
+        this.usuarioEnvioInfo = false;
+        this.usuarioPagoInfo = false;
+        this.incorrectPassword = false;
+        this.getUsuarioActual();
       },
       error => {
         this.loggedIn = false;
@@ -174,6 +199,13 @@ export class MiPerfilComponent implements OnInit {
       res => {
         this.getUsuarioActual();
         this.envioPredeterminado = true;
+        this.borrarEnvioInfo = false;
+        this.borrarTarjetaOk = false;
+        this.actualizadoExito = false;
+        this.pagoPredeterminado = false;
+        this.usuarioEnvioInfo = false;
+        this.usuarioPagoInfo = false;
+        this.incorrectPassword = false;
       },
       error => {
         console.log(error.text());
@@ -211,9 +243,16 @@ export class MiPerfilComponent implements OnInit {
   }
 
   onMostrarDetalleFactura(factura: Factura) {
+    this.envioPredeterminado = false;
+    this.borrarEnvioInfo = false;
+    this.borrarTarjetaOk = false;
+    this.actualizadoExito = false;
+    this.pagoPredeterminado = false;
+    this.usuarioEnvioInfo = false;
+    this.usuarioPagoInfo = false;
+    this.incorrectPassword = false;
     console.log(factura);
     this.factura = factura;
-    this.mostrarDetalleFactura = true;
     this.carritoItemLista = this.factura.carritoItemList;
   }
 

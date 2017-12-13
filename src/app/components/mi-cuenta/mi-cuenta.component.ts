@@ -24,13 +24,13 @@ export class MiCuentaComponent implements OnInit {
   private credenciales = { 'username': '', 'password': '' };
 
   private emailEnviado: boolean = false;
-  private usernameExiste: boolean;
-  private emailExiste: boolean;
+  private usernameExiste: boolean = false;
+  private emailExiste: boolean = false;
   private username: string;
   private email: string;
 
   private emailNoExiste: boolean = false;
-  private olvidePasswordCorreoEnviado: boolean;
+  private olvidePasswordCorreoEnviado: boolean = false;
   private recuperarEmail: string;
 
 
@@ -65,6 +65,10 @@ export class MiCuentaComponent implements OnInit {
       res => {
         console.log(res);
         this.emailEnviado = true;
+        this.usernameExiste = false;
+        this.emailExiste = false;
+        this.emailEnviado = false;
+        this.olvidePasswordCorreoEnviado = false;
       },
       error => {
         console.log(error.text());
@@ -83,6 +87,9 @@ export class MiCuentaComponent implements OnInit {
       res => {
         console.log(res);
         this.olvidePasswordCorreoEnviado = true;
+        this.usernameExiste = false;
+        this.emailExiste = false;
+        this.emailEnviado = false;
       },
       error => {
         console.log(error.text());

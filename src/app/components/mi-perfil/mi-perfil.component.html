@@ -111,7 +111,7 @@
           <tbody>
             <tr *ngFor="let factura of facturaLista">
               <td>
-                <a class="btn btn-floating cyan pulse " (click)="onMostrarDetalleFactura(factura)">
+                <a class="btn btn-floating cyan pulse " (click)="onMostrarDetalleFactura(factura); mostrarDetalleFactura = !mostrarDetalleFactura">
                   {{factura.id}}
                 </a>
               </td>
@@ -269,6 +269,9 @@
             <div *ngIf="pagoPredeterminado" class="card-panel green lighten-4 green-text text-darken-4">
               <strong>Petición correcta</strong>
             </div>
+            <div *ngIf="borrarTarjetaOk" class="card-panel yellow lighten-4 yellow-text text-darken-4">
+              <strong>Tarjeta borrada</strong>
+            </div>
             <form (ngSubmit)="setPagoPredeterminado()" method="post">
               <table class="bordered responsive-table centered" style="margin-top: 2%">
                 <thead style="background-color: #fafafa">
@@ -287,10 +290,7 @@
                     </td>
                     <td>{{usuarioPago.nombreTarjeta}}</td>
                     <td>
-                      <!-- <button class="btn-floating btn-tiny waves-effect waves-light" (click)="onActualizarPago(usuarioPago.id)">
-                        <i class="material-icons">edit</i>
-                      </button> -->
-                      <button class="btn-floating btn-tiny waves-effect waves-light red" (click)="onBorrarPago(usuarioPago.id)">
+                      <button class="btn-floating btn-tiny waves-effect waves-light red" (click)="onBorrarPago(usuarioPago.id); pagoPredeterminado === false">
                         <i class="material-icons">delete_forever</i>
                       </button>
                     </td>
@@ -446,6 +446,9 @@
             <div *ngIf="envioPredeterminado" class="card-panel green lighten-4 green-text text-darken-4">
               <strong>Petición correcta</strong>
             </div>
+            <div *ngIf="borrarEnvioInfo" class="card-panel yellow lighten-4 yellow-text text-darken-4">
+              Dirección De Envió Borrada
+            </div>
             <!-- <div *ngIf="borrarEnvioInfo" class="card-panel green lighten-4 green-text text-darken-4" id="todoCorrecto">
               Información borrada correctamente
             </div> -->
@@ -469,11 +472,6 @@
                       {{usuarioEnvio.usuarioEnvioCodigoPostal}}
                     </td>
                     <td>
-                      <!-- <button class="btn-floating btn-tiny waves-effect waves-light" (click)="onActualizarEnvio(usuarioEnvio)">
-                        <a href="#AddUpdatedEnvio">
-                          <i class="material-icons">edit</i>
-                        </a>
-                      </button> -->
                       <button class="btn-floating btn-tiny waves-effect waves-light red" (click)="onBorrarEnvio(usuarioEnvio.id)">
                         <i class="material-icons">delete_forever</i>
                       </button>
